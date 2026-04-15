@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#1C2B3A"/>
+  <!-- Logo -->
+  <g transform="translate(600, 260) scale(2.2)">
+    <polygon points="50,2 93,20 98,50 93,80 50,98 7,80 2,50 7,20" fill="none" stroke="#E8C96A" stroke-width="5" transform="translate(-50,-50)"/>
+    <polygon points="50,12 83,26 87,50 83,74 50,88 17,74 13,50 17,26" fill="none" stroke="#E8C96A" stroke-width="3" transform="translate(-50,-50)"/>
+    <text x="0" y="12" text-anchor="middle" font-family="'Bebas Neue', Arial, sans-serif" font-size="42" font-weight="700" fill="#E8C96A" letter-spacing="2">GS</text>
+  </g>
+  <!-- Title -->
+  <text x="600" y="440" text-anchor="middle" font-family="'Bebas Neue', Arial, sans-serif" font-size="48" fill="#E8C96A" letter-spacing="6" text-transform="uppercase">THE GOLD STANDARD</text>
+  <!-- Subtitle -->
+  <text x="600" y="490" text-anchor="middle" font-family="'Inter', Arial, sans-serif" font-size="22" fill="rgba(255,255,255,0.8)">Train Like a Fighter. Look Like One Too.</text>
+  <!-- Author -->
+  <text x="600" y="540" text-anchor="middle" font-family="'Inter', Arial, sans-serif" font-size="16" fill="rgba(232,201,106,0.6)" letter-spacing="3">BY HANNAH GOLDY</text>
+</svg>

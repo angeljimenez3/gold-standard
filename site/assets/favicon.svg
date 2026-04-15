@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <polygon points="50,2 93,20 98,50 93,80 50,98 7,80 2,50 7,20" fill="#1C2B3A" stroke="#E8C96A" stroke-width="5"/>
+  <polygon points="50,12 83,26 87,50 83,74 50,88 17,74 13,50 17,26" fill="none" stroke="#E8C96A" stroke-width="3"/>
+  <text x="50" y="62" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-size="42" font-weight="700" fill="#E8C96A" letter-spacing="2">GS</text>
+</svg>
