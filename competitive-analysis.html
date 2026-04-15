@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Competitive Analysis — The Gold Standard by Hannah Goldy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #f6f4f0;
+      --paper-card: #fffefa;
+      --terracotta: #c45d3e;
+      --navy: #1C2B3A;
+      --gold: #E8C96A;
+      --matte-gold: #A8872A;
+      --near-black: #111827;
+      --text: #2a2a2a;
+      --text-muted: #6b6b6b;
+      --border: #e8e4df;
+      --shadow: rgba(0,0,0,0.04);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--paper);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    /* Grain overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.03;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* Cover */
+    .cover {
+      min-height: 60vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 80px 32px;
+      position: relative;
+    }
+
+    .cover-badge {
+      display: inline-block;
+      background: var(--navy);
+      color: var(--gold);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      padding: 8px 24px;
+      border-radius: 100px;
+      margin-bottom: 40px;
+    }
+
+    .cover h1 {
+      font-family: 'Instrument Serif', serif;
+      font-size: clamp(36px, 6vw, 64px);
+      font-weight: 400;
+      line-height: 1.15;
+      color: var(--navy);
+      margin-bottom: 16px;
+    }
+
+    .cover h1 em {
+      color: var(--terracotta);
+      font-style: italic;
+    }
+
+    .cover .subtitle {
+      font-size: 17px;
+      color: var(--text-muted);
+      max-width: 500px;
+      margin-bottom: 32px;
+    }
+
+    .cover-meta {
+      font-size: 13px;
+      color: var(--text-muted);
+      letter-spacing: 1px;
+    }
+
+    .cover-meta span {
+      margin: 0 8px;
+      opacity: 0.4;
+    }
+
+    /* Sections */
+    section {
+      padding: 64px 0;
+      position: relative;
+    }
+
+    .phase-number {
+      font-family: 'Instrument Serif', serif;
+      font-size: 96px;
+      font-weight: 400;
+      color: var(--navy);
+      opacity: 0.06;
+      line-height: 1;
+      margin-bottom: -24px;
+    }
+
+    .section-title {
+      font-family: 'Instrument Serif', serif;
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 400;
+      color: var(--navy);
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+
+    .section-subtitle {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+      margin-bottom: 32px;
+    }
+
+    .tag {
+      display: inline-block;
+      background: rgba(28, 43, 58, 0.06);
+      color: var(--text-muted);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 100px;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--paper-card);
+      border-left: 4px solid var(--terracotta);
+      border-radius: 2px;
+      padding: 28px 32px;
+      margin-bottom: 20px;
+      box-shadow: 0 1px 3px var(--shadow);
+      transition: box-shadow 0.2s;
+    }
+
+    .card:hover {
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+
+    .card h3 {
+      font-family: 'Instrument Serif', serif;
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--navy);
+    }
+
+    .card-score {
+      background: var(--navy);
+      color: var(--gold);
+      font-size: 14px;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+
+    .card p {
+      margin-bottom: 12px;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .card-detail {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .card-detail-item {
+      background: var(--paper);
+      padding: 14px 16px;
+      border-radius: 4px;
+    }
+
+    .card-detail-item .label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .card-detail-item .value {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--navy);
+    }
+
+    /* Color swatches */
+    .swatches {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .swatch {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      display: inline-block;
+    }
+
+    .swatch-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-left: 4px;
+    }
+
+    /* Comparison table */
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 13px;
+    }
+
+    .comparison-table thead th {
+      background: var(--navy);
+      color: #fff;
+      padding: 12px 14px;
+      text-align: left;
+      font-weight: 500;
+      font-size: 12px;
+      letter-spacing: 0.5px;
+    }
+
+    .comparison-table thead th:first-child {
+      border-radius: 4px 0 0 0;
+    }
+
+    .comparison-table thead th:last-child {
+      border-radius: 0 4px 0 0;
+    }
+
+    .comparison-table tbody td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    .comparison-table tbody tr:nth-child(even) {
+      background: rgba(28, 43, 58, 0.02);
+    }
+
+    .comparison-table tbody tr:hover {
+      background: rgba(232, 201, 106, 0.06);
+    }
+
+    .score-high { color: #16a34a; font-weight: 700; }
+    .score-mid { color: var(--matte-gold); font-weight: 600; }
+    .score-low { color: var(--terracotta); font-weight: 600; }
+
+    /* Pattern cards */
+    .pattern-card {
+      background: var(--navy);
+      color: #fff;
+      border-left: 4px solid var(--gold);
+      border-radius: 2px;
+      padding: 28px 32px;
+      margin-bottom: 20px;
+    }
+
+    .pattern-card h3 {
+      font-family: 'Instrument Serif', serif;
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+
+    .pattern-card p {
+      font-size: 14px;
+      line-height: 1.7;
+      opacity: 0.85;
+    }
+
+    .pattern-number {
+      font-family: 'Instrument Serif', serif;
+      font-size: 48px;
+      font-weight: 400;
+      color: var(--gold);
+      opacity: 0.3;
+      line-height: 1;
+      margin-bottom: -8px;
+    }
+
+    /* Recommendation section */
+    .rec-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 24px;
+    }
+
+    .rec-item {
+      background: var(--paper-card);
+      border-top: 3px solid var(--gold);
+      padding: 24px;
+      border-radius: 0 0 4px 4px;
+    }
+
+    .rec-item h4 {
+      font-family: 'Instrument Serif', serif;
+      font-size: 18px;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+
+    .rec-item p {
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--text-muted);
+    }
+
+    /* Flow connector */
+    .flow-connector {
+      text-align: center;
+      padding: 24px 0;
+    }
+
+    .flow-connector svg {
+      width: 2px;
+      height: 48px;
+    }
+
+    /* Executive summary */
+    .exec-summary {
+      background: var(--paper-card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 40px;
+      margin: 32px 0;
+      position: relative;
+    }
+
+    .exec-summary::before {
+      content: '\201C';
+      font-family: 'Instrument Serif', serif;
+      font-size: 80px;
+      color: var(--terracotta);
+      opacity: 0.15;
+      position: absolute;
+      top: 8px;
+      left: 24px;
+      line-height: 1;
+    }
+
+    .exec-summary p {
+      font-size: 16px;
+      line-height: 1.8;
+      color: var(--text);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Divider */
+    hr {
+      border: none;
+      border-top: 1px dashed var(--border);
+      margin: 48px 0;
+    }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      .container { padding: 0 20px; }
+      .cover { padding: 48px 20px; min-height: 50vh; }
+      .card { padding: 20px 24px; }
+      .card-detail { grid-template-columns: 1fr; }
+      .rec-grid { grid-template-columns: 1fr; }
+      .comparison-table { font-size: 11px; }
+      .comparison-table thead th, .comparison-table tbody td { padding: 8px 6px; }
+      .exec-summary { padding: 28px 24px; }
+      .phase-number { font-size: 64px; }
+    }
+
+    /* Print */
+    @media print {
+      body { background: #fff; font-size: 12px; }
+      body::before { display: none; }
+      .container { max-width: 100%; padding: 0 24px; }
+      .cover { min-height: auto; padding: 48px 24px; page-break-after: always; }
+      section { page-break-inside: avoid; padding: 32px 0; }
+      .card { box-shadow: none; border: 1px solid #ddd; page-break-inside: avoid; }
+      .card:hover { box-shadow: none; }
+      .pattern-card { page-break-inside: avoid; }
+      .comparison-table { page-break-inside: avoid; }
+      .phase-number { font-size: 48px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- COVER -->
+  <div class="cover">
+    <div class="cover-badge">Competitive Analysis</div>
+    <h1>The Gold Standard<br>by <em>Hannah Goldy</em></h1>
+    <p class="subtitle">Online fitness coaching niche analysis — positioning, design direction, and strategic recommendations backed by competitor data.</p>
+    <p class="cover-meta">Prepared April 2026 <span>|</span> Confidential</p>
+  </div>
+
+  <div class="container">
+
+    <!-- EXECUTIVE SUMMARY -->
+    <section>
+      <div class="phase-number">00</div>
+      <h2 class="section-title">Executive Summary</h2>
+      <div class="tags">
+        <span class="tag">Market Position</span>
+        <span class="tag">Key Findings</span>
+        <span class="tag">Strategic Direction</span>
+      </div>
+
+      <div class="exec-summary">
+        <p>The online women's fitness coaching market is dominated by brands targeting women over 40 (WarriorBabe) or body-positive/inclusive audiences (Girls Gone Strong). <strong>No major brand currently owns the "combat-athlete-turned-coach" positioning for women under 40.</strong> Hannah Goldy's UFC credentials, hypothyroid story, and dual-track program (fat loss + muscle building) create a unique positioning that none of the top 5 competitors can replicate. The $297 course price point sits in a strategic gap — premium enough to signal quality, accessible enough to convert social media audiences. With the right design language and social proof strategy, The Gold Standard can carve out a defensible niche as the go-to program for women who want a fighter's physique and mindset without the restrictive, clinical feel of existing programs.</p>
+      </div>
+    </section>
+
+    <!-- FLOW CONNECTOR -->
+    <div class="flow-connector">
+      <svg viewBox="0 0 2 48"><line x1="1" y1="0" x2="1" y2="48" stroke="#c45d3e" stroke-width="1" stroke-dasharray="4 4"/></svg>
+    </div>
+
+    <!-- COMPETITOR PROFILES -->
+    <section>
+      <div class="phase-number">01</div>
+      <h2 class="section-title">Competitor Profiles</h2>
+      <p class="section-subtitle">Top 5 competitors scored across 8 criteria — search visibility, review quality, visual design, mobile responsiveness, content depth, social proof, CTA strategy, and page speed.</p>
+      <div class="tags">
+        <span class="tag">Brand Analysis</span>
+        <span class="tag">Design Audit</span>
+        <span class="tag">Conversion Strategy</span>
+      </div>
+
+      <!-- Competitor 1 -->
+      <div class="card">
+        <div class="card-header">
+          <h3>WarriorBabe</h3>
+          <span class="card-score">71 / 80</span>
+        </div>
+        <p><strong>Positioning:</strong> Science-based coaching for women over 40 navigating perimenopause and menopause. Proprietary "WB4 Method" — a 12-month, four-phase system for metabolic rebuilding.</p>
+        <p><strong>Why they win:</strong> Application-based funnel creates exclusivity. 21,800+ women transformed with 1,500+ reviews at 4.8 avg. BBB A+ accredited. Clean, SaaS-grade design that feels premium and trustworthy. Massive SEO footprint ranking for competitive terms.</p>
+        <div class="card-detail">
+          <div class="card-detail-item">
+            <div class="label">Colors</div>
+            <div class="value">
+              <div class="swatches">
+                <span class="swatch" style="background:#181318;"></span>
+                <span class="swatch" style="background:#F7F9FD;"></span>
+                <span class="swatch" style="background:#ffffff; border-color:#ddd;"></span>
+              </div>
+            </div>
+          </div>
+          <div class="card-detail-item">
+            <div class="label">Typography</div>
+            <div class="value">Oswald + Lato</div>
+          </div>
+          <div class="card-detail-item">
+            <div class="label">CTA Strategy</div>
+            <div class="value">"APPLY NOW" — 15+ placements, no public pricing</div>
+          </div>
+          <div class="card-detail-item">
+            <div class="label">Target Demo</div>
+            <div class="value">Women 40+, menopause/perimenopause</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Competitor 2 -->
+      <div class="card">
+        <div class="card-header">
+          <h3>Girls Gone Strong</h3>
+          <span class="card-score">66 / 80</span>
+        </div>
+        <p><strong>Positioning:</strong> Sustainable, inclusive fitness coaching — "Get in the best shape of your life, for good." Whole-person approach combining nutrition, exercise, and mindset. Deliberately excludes before/after photos.</p>
+        <p><strong>Why they win:</strong> Scarcity model (opens twice a year, sells out in hours). Strong pre-sale list strategy with 45% discounts. Money-back guarantee with 80% participation requirement. Premium pricing ($2k-$3.6k/year) justified by 12-month commitment.</p>
+        <div class="card-detail">
+          <div class="card-detail-item">
+            <div class="label">Colors</div>
+            <div class="value">
+              <div class="swatches">
+                <span class="swatch" style="background:#052746;"></span>
+                <span class="swatch" style="background:#DB2B77;"></span>
+                <span class="swatch" style="background:#66B3C4;"></span>
+              </div>
+            </div>
+          </div>
+          <div class="card-detail-item">
+            <div class="label">Typography</div>
+            <div class="value">Assistant (200-800)</div>
+          </div>
+          <div class="card-detail-item">
+            <div class="label">CTA Strategy</div>
+            <div class="value">"Join the Pre-sale List" — scarcity-driven</div>
+          </div>
+          <div class="card-detail-item">
+            <div class="label">Pricing</div>
+            <div class="value">$299.99/mo or $1,999 one-time</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Competitor 3 -->
+      <div class="card">
+        <div class="card-header">
+          <h3>Moxie by Lindsey</h3>
+          <span class="card-score">56 / 80</span>
+        </div>
+        <p><strong>Positioning:</strong> "Elite" online personal training for women — personalized workouts designed to fit your lifestyle. Break free from generic routines.</p>
+        <p><strong>Why they rank mid:</strong> Good product ecosystem (coaching + cookbooks + supplements + podcast) but emoji-heavy design undercuts premium positioning. Application-based model with $200+ welcome gift creates perceived value.</p>
+        <div class="card-detail">
+          <div class="card-detail-item">
+            <div class="label">Colors</div>
+            <div class="value">
+              <div class="swatches">
+                <span class="swatch" style="background:#000000;"></span>
+                <span class="swatch" style="background:#ffffff; border-color:#ddd;"></span>
+                <span class="swatch" style="background:#d4af37;"></span>
+              </div>
+            </div>
+          </div>
+          <div class="card-detail-item">
+            <div class="label">Typography</div>
+            <div class="value">Webflow system fonts</div>
+          </div>
+          <div class="card-detail-item">
+            <div class="label">CTA Strategy</div>
+            <div class="value">"Join the Elite" — application required</div>
+          </div>
+          <div class="card-detail-item">
+            <div class="label">Social Proof</div>
+            <div class="value">16+ review carousel, named clients</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Competitor 4 -->
+      <div class="card">
+        <div class="card-header">
+          <h3>Julie Lohre</h3>
+          <span class="card-score">54 / 80</span>
+        </div>
+        <p><strong>Positioning:</strong> "Voted Best Female Fitness Trainer" — 20+ years experience. Award-focused credentialing as primary trust signal. 1-on-1 coaching with personal attention from Julie directly.</p>
+        <p><strong>Why they rank lower:</strong> Dated design with aggressive color palette (orange-red + purple). Over-relies on awards rather than showing a structured system. Less structured product offering — feels like a service business, not a brand.</p>
+        <div class="card-detail">
+          <div class="card-detail-item">
+            <div class="label">Colors</div>
+            <div class="value">
+              <div class="swatches">
+                <span class="swatch" style="background:#ff2a13;"></span>
+                <span class="swatch" style="background:#4c0d80;"></span>
+                <span class="swatch" style="background:#3c96d7;"></span>
+              </div>
+            </div>
+          </div>
+          <div class="card-detail-item">
+            <div class="label">Typography</div>
+            <div class="value">Lato (light 300 body)</div>
+          </div>
+          <div class="card-detail-item">
+            <div class="label">CTA Strategy</div>
+            <div class="value">Bold orange-red buttons, direct contact</div>
+          </div>
+          <div class="card-detail-item">
+            <div class="label">Weakness</div>
+            <div class="value">Dated visual design, no proprietary method</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Competitor 5 -->
+      <div class="card">
+        <div class="card-header">
+          <h3>The Physical Athlete</h3>
+          <span class="card-score">50 / 80</span>
+        </div>
+        <p><strong>Positioning:</strong> Combat athlete conditioning by a coach with 20+ years training UFC fighters. 7-module system covering health, strength, power, and competition readiness. $147 for the full bundle.</p>
+        <p><strong>Why they're relevant:</strong> Most direct competitor to Hannah's combat angle. Strong fighter testimonials (Ian McCall, Jessica Penne). But weak design undermines premium potential. Coach is a trainer, not a fighter — Hannah has the edge here.</p>
+        <div class="card-detail">
+          <div class="card-detail-item">
+            <div class="label">Colors</div>
+            <div class="value">
+              <div class="swatches">
+                <span class="swatch" style="background:#000000;"></span>
+                <span class="swatch" style="background:#0072EF;"></span>
+                <span class="swatch" style="background:#ffffff; border-color:#ddd;"></span>
+              </div>
+            </div>
+          </div>
+          <div class="card-detail-item">
+            <div class="label">Typography</div>
+            <div class="value">System fonts, basic</div>
+          </div>
+          <div class="card-detail-item">
+            <div class="label">Pricing</div>
+            <div class="value">$147 bundle (7 modules, lifetime access)</div>
+          </div>
+          <div class="card-detail-item">
+            <div class="label">Opportunity</div>
+            <div class="value">Huge gap for premium fighter-coach brand</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FLOW CONNECTOR -->
+    <div class="flow-connector">
+      <svg viewBox="0 0 2 48"><line x1="1" y1="0" x2="1" y2="48" stroke="#c45d3e" stroke-width="1" stroke-dasharray="4 4"/></svg>
+    </div>
+
+    <!-- COMPARISON TABLE -->
+    <section>
+      <div class="phase-number">02</div>
+      <h2 class="section-title">Side-by-Side Comparison</h2>
+      <p class="section-subtitle">All 5 competitors scored across 8 criteria. Scores out of 10.</p>
+      <div class="tags">
+        <span class="tag">Scoring Matrix</span>
+        <span class="tag">Benchmarking</span>
+      </div>
+
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Criterion</th>
+            <th>WarriorBabe</th>
+            <th>Girls Gone Strong</th>
+            <th>Moxie</th>
+            <th>Julie Lohre</th>
+            <th>Physical Athlete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Search Visibility</td>
+            <td class="score-high">9</td>
+            <td class="score-high">8</td>
+            <td class="score-mid">5</td>
+            <td class="score-high">8</td>
+            <td class="score-low">4</td>
+          </tr>
+          <tr>
+            <td>Review Quality</td>
+            <td class="score-high">9</td>
+            <td class="score-high">8</td>
+            <td class="score-mid">7</td>
+            <td class="score-mid">7</td>
+            <td class="score-mid">7</td>
+          </tr>
+          <tr>
+            <td>Visual Design</td>
+            <td class="score-high">9</td>
+            <td class="score-high">8</td>
+            <td class="score-mid">7</td>
+            <td class="score-mid">6</td>
+            <td class="score-low">5</td>
+          </tr>
+          <tr>
+            <td>Mobile Responsive</td>
+            <td class="score-high">9</td>
+            <td class="score-high">9</td>
+            <td class="score-high">8</td>
+            <td class="score-mid">7</td>
+            <td class="score-mid">6</td>
+          </tr>
+          <tr>
+            <td>Content Depth</td>
+            <td class="score-high">8</td>
+            <td class="score-high">9</td>
+            <td class="score-mid">7</td>
+            <td class="score-mid">7</td>
+            <td class="score-high">8</td>
+          </tr>
+          <tr>
+            <td>Social Proof</td>
+            <td class="score-high">10</td>
+            <td class="score-high">8</td>
+            <td class="score-high">8</td>
+            <td class="score-mid">6</td>
+            <td class="score-high">9</td>
+          </tr>
+          <tr>
+            <td>CTA Strategy</td>
+            <td class="score-high">9</td>
+            <td class="score-high">8</td>
+            <td class="score-mid">7</td>
+            <td class="score-mid">7</td>
+            <td class="score-mid">6</td>
+          </tr>
+          <tr>
+            <td>Page Speed</td>
+            <td class="score-high">8</td>
+            <td class="score-high">8</td>
+            <td class="score-mid">7</td>
+            <td class="score-mid">6</td>
+            <td class="score-low">5</td>
+          </tr>
+          <tr style="font-weight:700; background: rgba(28,43,58,0.04);">
+            <td>TOTAL</td>
+            <td class="score-high">71</td>
+            <td class="score-high">66</td>
+            <td class="score-mid">56</td>
+            <td class="score-mid">54</td>
+            <td class="score-low">50</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- FLOW CONNECTOR -->
+    <div class="flow-connector">
+      <svg viewBox="0 0 2 48"><line x1="1" y1="0" x2="1" y2="48" stroke="#c45d3e" stroke-width="1" stroke-dasharray="4 4"/></svg>
+    </div>
+
+    <!-- SEO LANDSCAPE -->
+    <section>
+      <div class="phase-number">03</div>
+      <h2 class="section-title">SEO Landscape</h2>
+      <p class="section-subtitle">Keyword opportunities, gaps, and recommendations for organic growth.</p>
+      <div class="tags">
+        <span class="tag">Search Strategy</span>
+        <span class="tag">Content Gaps</span>
+        <span class="tag">Keyword Opportunities</span>
+      </div>
+
+      <div class="card">
+        <h3>High-Opportunity Keywords</h3>
+        <p>WarriorBabe dominates "online fitness coaching for women over 40" and Girls Gone Strong owns "sustainable fitness coaching." Neither competes for combat-fitness positioning.</p>
+        <div class="card-detail">
+          <div class="card-detail-item">
+            <div class="label">Uncontested Keywords</div>
+            <div class="value">"UFC fighter workout for women," "fighter physique program," "fat loss for hypothyroid," "combat athlete training women"</div>
+          </div>
+          <div class="card-detail-item">
+            <div class="label">Mid-Competition</div>
+            <div class="value">"online fat loss program for women," "women's muscle building course," "female fitness coach online"</div>
+          </div>
+          <div class="card-detail-item">
+            <div class="label">Content Strategy</div>
+            <div class="value">Blog posts targeting hypothyroid fitness, fighter conditioning for non-fighters, fat loss misconceptions</div>
+          </div>
+          <div class="card-detail-item">
+            <div class="label">Quick Wins</div>
+            <div class="value">Hannah Goldy branded searches, UFC fighter fitness program, NASM certified trainer programs</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FLOW CONNECTOR -->
+    <div class="flow-connector">
+      <svg viewBox="0 0 2 48"><line x1="1" y1="0" x2="1" y2="48" stroke="#c45d3e" stroke-width="1" stroke-dasharray="4 4"/></svg>
+    </div>
+
+    <!-- PATTERNS -->
+    <section>
+      <div class="phase-number">04</div>
+      <h2 class="section-title">Patterns of the Top 10%</h2>
+      <p class="section-subtitle">The 5 things all winning sites do that average competitors don't.</p>
+      <div class="tags">
+        <span class="tag">Best Practices</span>
+        <span class="tag">Competitive Edge</span>
+        <span class="tag">Design Patterns</span>
+      </div>
+
+      <div class="pattern-card">
+        <div class="pattern-number">01</div>
+        <h3>Application-Based or Scarcity Funnels</h3>
+        <p>Top brands don't let you "buy now." WarriorBabe requires an application. Girls Gone Strong opens enrollment twice a year. This creates exclusivity, qualifies leads, justifies premium pricing, and makes the prospect feel like they're being selected — not sold to.</p>
+      </div>
+
+      <div class="pattern-card">
+        <div class="pattern-number">02</div>
+        <h3>Massive, Specific Social Proof</h3>
+        <p>WarriorBabe shows 21,800+ transformations and 1,500+ reviews. The bottom competitors have 5-10 generic testimonials. Volume matters, but specificity matters more — "lost 17lbs and 25 inches" beats "great program!" every time. Named clients with real metrics.</p>
+      </div>
+
+      <div class="pattern-card">
+        <div class="pattern-number">03</div>
+        <h3>Proprietary Method Naming</h3>
+        <p>WarriorBabe sells the "WB4 Method." Girls Gone Strong has certification-backed methodology. Top brands don't sell "workouts" — they sell a named system. This prevents direct price comparison and creates perceived uniqueness worth paying for.</p>
+      </div>
+
+      <div class="pattern-card">
+        <div class="pattern-number">04</div>
+        <h3>SaaS-Grade Design Language</h3>
+        <p>Top fitness sites look like tech startups, not fitness blogs. Generous whitespace, professional photography, minimal clutter, clean typography. WarriorBabe and Girls Gone Strong both nail this. Bottom competitors look like Wix templates.</p>
+      </div>
+
+      <div class="pattern-card">
+        <div class="pattern-number">05</div>
+        <h3>Multi-Touchpoint Content Ecosystem</h3>
+        <p>Blog, free courses, certifications, cookbooks, podcasts, YouTube. The top brands create trust-building touchpoints everywhere, converting cold audiences through value before asking for the sale. This is the moat.</p>
+      </div>
+    </section>
+
+    <!-- FLOW CONNECTOR -->
+    <div class="flow-connector">
+      <svg viewBox="0 0 2 48"><line x1="1" y1="0" x2="1" y2="48" stroke="#c45d3e" stroke-width="1" stroke-dasharray="4 4"/></svg>
+    </div>
+
+    <!-- DESIGN DIRECTION -->
+    <section>
+      <div class="phase-number">05</div>
+      <h2 class="section-title">Recommended Design Direction</h2>
+      <p class="section-subtitle">Colors, typography, structure, and animation recommendations backed by competitor data.</p>
+      <div class="tags">
+        <span class="tag">Visual Identity</span>
+        <span class="tag">UX Strategy</span>
+        <span class="tag">Animation</span>
+      </div>
+
+      <div class="rec-grid">
+        <div class="rec-item">
+          <h4>Color Palette</h4>
+          <p>Keep the brand book's Navy (#1C2B3A) + Gold (#E8C96A) + Off-White (#F5F4F0). This already outclasses every competitor's palette. The navy/gold combination signals authority and premium positioning that no competitor currently uses. Add Near Black (#111827) for high-contrast hero sections.</p>
+        </div>
+        <div class="rec-item">
+          <h4>Typography</h4>
+          <p>Anton for headlines creates immediate visual dominance — bolder than any competitor's type choices. Bebas Neue for labels/eyebrows adds tactical, athletic texture. Inter for body keeps everything readable. This three-font system is stronger than WarriorBabe's Oswald/Lato stack.</p>
+        </div>
+        <div class="rec-item">
+          <h4>Page Structure</h4>
+          <p>Single long-form sales page with scroll-triggered sections. Hero with video/3D asset placeholder, credential bar, program overview, curriculum breakdown (tabbed: Fat Loss / Muscle), pricing tiers, FAQ, final CTA. Dark/light section alternation for visual rhythm.</p>
+        </div>
+        <div class="rec-item">
+          <h4>Animation Strategy</h4>
+          <p>GSAP ScrollTrigger for section reveals. Parallax depth on Hannah's photos. Counter animations on stats (12 years, 4 certs). Smooth cinematic feel — Apple/Stripe quality. No competitor uses scroll animation — this is a clear differentiator. <code>prefers-reduced-motion</code> support mandatory.</p>
+        </div>
+        <div class="rec-item">
+          <h4>Social Proof Strategy</h4>
+          <p>Since no testimonials exist yet, build placeholder infrastructure for transformation stories. Include Hannah's own before/after (hypothyroid journey). Use credential badges prominently — UFC, NASM x4, BJJ Black Belt, 12 Years Pro. These ARE the social proof for now.</p>
+        </div>
+        <div class="rec-item">
+          <h4>Conversion Architecture</h4>
+          <p>Built-in checkout (not external redirect) keeps the premium feel. Three tiers visible: Course ($297), Group Coaching ($3,000), 1-on-1 packages ($1,250-$3,500). Primary CTA on every viewport. Sticky nav with CTA button. FAQ section addressing every fake belief from the session notes.</p>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top: 24px;">
+        <h3>What to Avoid</h3>
+        <p>Based on what the bottom competitors do wrong:</p>
+        <p>&bull; <strong>No emoji in copy or design</strong> — Moxie's emoji-heavy approach looks amateur at higher price points.<br>
+        &bull; <strong>No aggressive, clashing colors</strong> — Julie Lohre's red/purple/blue creates visual noise.<br>
+        &bull; <strong>No template-looking layouts</strong> — The Physical Athlete's basic design kills credibility despite great content.<br>
+        &bull; <strong>No vague testimonials</strong> — "Great program!" is worthless. Always use specific metrics when proof becomes available.<br>
+        &bull; <strong>No hidden pricing</strong> — At Hannah's price point ($297), showing the price converts better than hiding it behind an application.</p>
+      </div>
+    </section>
+
+    <hr>
+
+    <!-- SUGGESTED DOMAIN -->
+    <section style="text-align: center; padding: 48px 0;">
+      <p class="section-subtitle" style="margin-bottom: 8px;">Suggested Domain</p>
+      <h2 class="section-title" style="font-size: 32px;">thegoldstandardfitness.com</h2>
+      <p style="font-size: 14px; color: var(--text-muted); max-width: 400px; margin: 12px auto 0;">Clean, memorable, SEO-friendly. Alternatives: goldstandardbyhannahgoldy.com, traingoldstandard.com</p>
+    </section>
+
+    <hr>
+
+    <footer style="text-align: center; padding: 48px 0; font-size: 13px; color: var(--text-muted);">
+      <p>The Gold Standard by Hannah Goldy &mdash; Competitive Analysis Report</p>
+      <p style="margin-top: 4px;">Prepared April 2026 &bull; Confidential</p>
+    </footer>
+
+  </div>
+</body>
+</html>

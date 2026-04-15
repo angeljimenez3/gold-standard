@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://thegoldstandardfitness.com/sitemap.xml
