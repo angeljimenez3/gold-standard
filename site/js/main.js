@@ -246,43 +246,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  /* --- Checkout Form Toggle --- */
-  document.querySelectorAll('.checkout-trigger').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const card = btn.closest('.pricing-card');
-      const form = card.querySelector('.checkout-form');
-      if (form) {
-        form.classList.toggle('active');
-        if (form.classList.contains('active')) {
-          form.querySelector('input').focus();
-          btn.textContent = 'Close';
-        } else {
-          btn.textContent = btn.getAttribute('data-label');
-        }
-      }
-    });
-  });
-
-  /* --- Checkout Form Submission --- */
-  document.querySelectorAll('.checkout-form form').forEach(form => {
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const submitBtn = form.querySelector('button[type="submit"]');
-      const originalText = submitBtn.textContent;
-      submitBtn.textContent = 'Processing...';
-      submitBtn.disabled = true;
-
-      // Simulate processing — wire to Stripe in production
-      setTimeout(() => {
-        submitBtn.textContent = 'Success!';
-        submitBtn.style.background = '#16a34a';
-        setTimeout(() => {
-          submitBtn.textContent = originalText;
-          submitBtn.disabled = false;
-          submitBtn.style.background = '';
-        }, 2000);
-      }, 1500);
-    });
-  });
+  /* --- Checkout Button ---
+     Wire #checkout-btn to your payment processor:
+     - Stripe Checkout: redirect to Stripe session URL
+     - Stripe Payment Links: set href to your payment link
+     - Gumroad / Lemon Squeezy / etc: set href or open modal
+     Example: document.getElementById('checkout-btn').href = 'https://buy.stripe.com/your-link';
+  */
 
 });
