@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hannah Launch Kit</title>
+<meta name="description" content="Everything built for The Gold Standard launch and Hannah's Orlando training, in one place.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#1C2B3A">
+<link rel="icon" href="files/qr-goldystandard-dark.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+<style>
+  :root { --navy:#1C2B3A; --deep:#16222E; --mid:#2F4259; --gold:#E8C96A; --txt:rgba(255,255,255,.9); --dim:rgba(255,255,255,.62); --line:rgba(232,201,106,.22); }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--deep); color: var(--txt); font-family: Inter, sans-serif; line-height: 1.6; }
+  a { color: var(--gold); }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+  header { background: var(--navy); border-bottom: 1px solid var(--line); padding: 34px 0 30px; }
+  .eyebrow { font-family: 'Bebas Neue', sans-serif; letter-spacing: .3em; color: var(--gold); font-size: 14px; }
+  h1 { font-family: Anton, sans-serif; font-weight: 400; text-transform: uppercase; font-size: clamp(34px, 7vw, 54px); line-height: 1.02; margin: 8px 0 12px; }
+  h1 span { color: var(--gold); }
+  header p { color: var(--dim); max-width: 62ch; }
+  nav { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 8px 18px; }
+  nav a { font-family: 'Bebas Neue', sans-serif; letter-spacing: .14em; text-decoration: none; font-size: 16px; }
+  section { padding: 44px 0; border-bottom: 1px solid rgba(255,255,255,.07); }
+  h2 { font-family: Anton, sans-serif; font-weight: 400; text-transform: uppercase; font-size: 26px; margin-bottom: 6px; }
+  .sub { color: var(--dim); margin-bottom: 22px; max-width: 70ch; }
+  .sites { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+  .site { background: var(--mid); border: 1px solid var(--line); border-left: 4px solid var(--gold); border-radius: 6px; padding: 20px 22px; }
+  .site b { font-family: 'Bebas Neue', sans-serif; font-size: 23px; letter-spacing: .05em; color: var(--gold); display: block; }
+  .site p { color: var(--dim); font-size: 15px; margin: 6px 0 14px; }
+  .btn { display: inline-block; background: var(--gold); color: var(--navy); font-family: 'Bebas Neue', sans-serif; letter-spacing: .14em; padding: 10px 18px; border-radius: 3px; text-decoration: none; font-size: 16px; }
+  .btn--ghost { background: none; color: var(--gold); border: 1px solid var(--line); }
+  .grid { display: grid; gap: 18px; }
+  .grid--stories { grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); }
+  .grid--cards { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+  .grid--qr { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+  figure { margin: 0; }
+  figure img { width: 100%; display: block; border-radius: 10px; border: 1px solid var(--line); background: #000; }
+  .grid--qr img { background: #fff; padding: 8px; }
+  figcaption { font-size: 14px; color: var(--dim); margin-top: 8px; display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+  .lead { display: grid; grid-template-columns: minmax(0, 420px) 1fr; gap: 26px; align-items: start; }
+  @media (max-width: 760px) { .lead { grid-template-columns: 1fr; } }
+  .lead iframe { width: 100%; height: 700px; border: 1px solid var(--line); border-radius: 10px; background: #F5F4F0; }
+  .note { background: var(--mid); border-left: 3px solid var(--gold); border-radius: 0 6px 6px 0; padding: 16px 18px; color: var(--txt); font-size: 15px; }
+  .note p + p { margin-top: 10px; }
+  .doc { background: #F5F4F0; color: #1C2B3A; border-radius: 8px; padding: 30px clamp(18px, 4vw, 46px); max-width: 820px; }
+  .doc h1 { font-size: 28px; color: #1C2B3A; margin: 0 0 10px; }
+  .doc h2 { font-size: 21px; color: #1C2B3A; margin: 28px 0 8px; }
+  .doc p { font-size: 15.5px; margin-bottom: 10px; }
+  .doc hr { border: none; border-top: 2px solid rgba(168,135,42,.35); margin: 26px 0; }
+  .doc strong { color: #1C2B3A; }
+  footer { padding: 30px 0 50px; color: var(--dim); font-size: 14px; }
+</style>
+</head>
+<body>
+
+<header><div class="wrap">
+  <span class="eyebrow">The Gold Standard &middot; Hannah Goldy</span>
+  <h1>Your Launch <span>Kit</span></h1>
+  <p>Everything built from our Sept 22 call, in one place. Every image and file below has its own link, so you can open it on your phone, download it, or send it straight to a printer.</p>
+  <nav><a href="#sites">Websites</a><a href="#card">Business card</a><a href="#stories">Story graphics</a><a href="#qr">QR codes</a><a href="#lead">Training leads</a><a href="#emails">Pre-launch emails</a></nav>
+</div></header>
+
+<section id="sites"><div class="wrap">
+  <h2>Your websites</h2>
+  <p class="sub">These are preview links for now. Once the domains are bought they move to goldystandard.com and hannahgoldy.com.</p>
+  <div class="sites">
+    <div class="site"><b>Pre-launch page</b>
+      <p>The link for your Instagram story. People pick the program they want, then leave their email for the $197 founding price.</p>
+      <a class="btn" href="https://gold-standard-prelaunch.vercel.app" target="_blank" rel="noopener">Open</a></div>
+    <div class="site"><b>Orlando training page</b>
+      <p>Where your business card QR code goes. One-on-one, online coaching and jiu-jitsu, no prices, and a form that emails every lead to you.</p>
+      <a class="btn" href="https://hannah-goldy-training.vercel.app" target="_blank" rel="noopener">Open</a></div>
+    <div class="site"><b>Members area</b>
+      <p>Now running Valeria's corrected videos, and every video has a Full screen button for your phone.</p>
+      <a class="btn" href="https://gold-standard-beta.vercel.app/members/" target="_blank" rel="noopener">Open</a></div>
+  </div>
+</div></section>
+
+<section id="card"><div class="wrap">
+  <h2>Business card</h2>
+  <p class="sub">Standard 3.5 x 2 inch card at print quality, with the bleed printers ask for already included. The QR code on the back opens your training page.</p>
+  <div class="grid grid--cards">
+    <figure><img src="files/business-card-front.png" alt="Business card front"><figcaption>Front <a href="files/business-card-front.png" download>Download</a></figcaption></figure>
+    <figure><img src="files/business-card-back.png" alt="Business card back"><figcaption>Back <a href="files/business-card-back.png" download>Download</a></figcaption></figure>
+  </div>
+</div></section>
+
+<section id="stories"><div class="wrap">
+  <h2>Instagram story graphics</h2>
+  <p class="sub">Sized for stories. Post each one after you have talked about it on camera, so the graphic works as the summary for anyone who skipped the video.</p>
+  <div class="grid grid--stories">
+    <figure><img src="files/story-01-coming-soon.png" alt=""><figcaption>Coming soon <a href="files/story-01-coming-soon.png" download>Download</a></figcaption></figure>
+    <figure><img src="files/story-02-pick-your-track.png" alt=""><figcaption>Pick your track <a href="files/story-02-pick-your-track.png" download>Download</a></figcaption></figure>
+    <figure><img src="files/story-03-founding-100.png" alt=""><figcaption>Founding 100 <a href="files/story-03-founding-100.png" download>Download</a></figcaption></figure>
+    <figure><img src="files/story-04-why-listen.png" alt=""><figcaption>Why listen <a href="files/story-04-why-listen.png" download>Download</a></figcaption></figure>
+    <figure><img src="files/story-05-orlando-training.png" alt=""><figcaption>Orlando training <a href="files/story-05-orlando-training.png" download>Download</a></figcaption></figure>
+  </div>
+</div></section>
+
+<section id="qr"><div class="wrap">
+  <h2>QR codes</h2>
+  <p class="sub">Vector files, so they stay sharp at any size, for flyers, gym posters or anything else you print.</p>
+  <div class="grid grid--qr">
+    <figure><img src="files/qr-hannahgoldy-light.svg" alt=""><figcaption>Training page <a href="files/qr-hannahgoldy-light.svg" download>Download</a></figcaption></figure>
+    <figure><img src="files/qr-hannahgoldy-dark.svg" alt=""><figcaption>Training, dark <a href="files/qr-hannahgoldy-dark.svg" download>Download</a></figcaption></figure>
+    <figure><img src="files/qr-goldystandard-light.svg" alt=""><figcaption>Program page <a href="files/qr-goldystandard-light.svg" download>Download</a></figcaption></figure>
+    <figure><img src="files/qr-goldystandard-dark.svg" alt=""><figcaption>Program, dark <a href="files/qr-goldystandard-dark.svg" download>Download</a></figcaption></figure>
+  </div>
+</div></section>
+
+<section id="lead"><div class="wrap">
+  <h2>What you get for each training lead</h2>
+  <p class="sub">When someone fills in the form on your training page, this lands in your inbox.</p>
+  <div class="lead">
+    <iframe src="files/lead-email-preview.html" title="Lead email example"></iframe>
+    <div class="note">
+      <p>Tap Call or Text and your phone opens straight to them. Hitting reply emails them back directly.</p>
+      <p>Their phone number is required on the form, so you always have a way to reach them. Prices never show on the page, so you can quote each person on the call.</p>
+    </div>
+  </div>
+</div></section>
+
+<section id="emails"><div class="wrap">
+  <h2>Your pre-launch emails</h2>
+  <p class="sub">Please read these before they go live. They are in your voice, so anything that doesn't sound like you should change.</p>
+  <article class="doc" id="doc">Loading...</article>
+</div></section>
+
+<footer><div class="wrap">The Gold Standard launch kit, Sept 2026.</div></footer>
+
+<script>
+  fetch('files/pre-launch-emails.md').then(r => r.text()).then(md => {
+    document.getElementById('doc').innerHTML = window.marked ? marked.parse(md) : '<pre>' + md.replace(/</g, '&lt;') + '</pre>';
+  }).catch(() => { document.getElementById('doc').innerHTML = '<p><a href="files/pre-launch-emails.md">Open the emails</a></p>'; });
+</script>
+</body>
+</html>
