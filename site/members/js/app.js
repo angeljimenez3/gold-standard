@@ -1,4 +1,4 @@
-/* THE GOLD STANDARD — Member Area App
+/* THE GOLDY STANDARD — Member Area App
    Single-page app: login gate → dashboard / course player / exercise library.
    Progress + auth state persist in localStorage. Videos stream from Google Drive
    via the driveId values in content.js. */
@@ -74,7 +74,7 @@
       <header class="topbar">
         <a class="logo" href="#/dashboard">
           <span class="logo-mark">${logoSvg()}</span>
-          <span>THE GOLD STANDARD <span class="by">·</span></span>
+          <span>THE GOLDY STANDARD <span class="by">·</span></span>
         </a>
         <nav class="nav">
           <a href="#/dashboard" class="${active === "dash" ? "active" : ""}">Dashboard</a>
@@ -105,7 +105,7 @@
       <div class="login-wrap">
         <div class="login-card">
           <div class="logo-mark logo-mark--lg">${logoSvg()}</div>
-          <h1>THE GOLD STANDARD</h1>
+          <h1>THE GOLDY STANDARD</h1>
           <p class="sub">Member Area — by Hannah Goldy</p>
           <form id="loginForm">
             <div class="field">
@@ -154,7 +154,7 @@
         <section class="dash-hero">
           <p class="eyebrow">MEMBER AREA</p>
           <h1 class="page-title">WELCOME BACK.</h1>
-          <p class="page-sub">Three tracks. Twelve weeks each. Everything Hannah learned in 12 years as a professional athlete — structured so you can use it for life. Pick your track and keep showing up.</p>
+          <p class="page-sub">Three tracks. Twelve weeks each. Everything Hannah learned in 12 years of MMA, structured so you can use it for life. Pick your track and keep showing up.</p>
           ${heroCta}
         </section>
 

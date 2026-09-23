@@ -95,6 +95,7 @@
 .cred {
   background: var(--navy-deep);
   padding: 26px 12px; text-align: center;
+  display: flex; flex-direction: column; justify-content: center;
 }
 .cred__n {
   display: block; font-family: var(--font-display);

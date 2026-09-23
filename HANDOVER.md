@@ -14,19 +14,20 @@ She believed "The Goldie Standard" was available. It is not.
 | thegoldiestandard.com | Registered 2009, GoDaddy, held through 2027 |
 | goldiestandard.com | Registered 2011, GoDaddy, held through 2027 |
 | thegoldstandard.com | Registered |
-| **goldystandard.com** | **Available** |
-| **hannahgoldy.com** | **Available** |
-| thegoldystandard.com | Available |
+| goldystandard.com | Available (worth buying too, to redirect typos) |
+| **thegoldystandard.com** | **Available: the program's domain** |
+| **hannahgoldy.com** | **Available: the Orlando training domain** |
 | goldystandardfitness.com | Available |
 
-Recommendation: buy `goldystandard.com` and `hannahgoldy.com`, and do not rebrand.
+**Decision (Hannah, Sept 23):** the program is renamed **The Goldy Standard**, at
+`thegoldystandard.com`. Everything has been renamed: both new sites, the sales page, the
+members area, the course PDFs, the story graphics and the emails. The GS logo still
+fits. The one thing that can't change is the audio: the filmed videos say "the gold
+standard" out loud. Hannah knew that when she chose the new name (she raised it herself
+on the Sept 22 call), so it's accepted.
 
-The URL `goldystandard.com` reads as her name, which is the pun she wanted, while the
-spoken brand stays "The Gold Standard." That matters because every video she has
-already filmed says "the gold standard" out loud. Changing the spelling of the brand
-would leave the audio slightly off from the branding forever, for no gain. She asked
-Angel on the call whether the rename was a big deal; the honest answer is that she
-does not need one. She needs a URL, and this gets her one for about twelve dollars.
+Also buy `goldystandard.com` and point it at the same site. It costs about twelve dollars
+and catches anyone who leaves off the "the".
 
 `hannahgoldy.com` covers the second business. A program sold to strangers should be
 named for the promise. A local service where someone is buying her time should be
@@ -75,12 +76,10 @@ program plus a weekly call). No prices anywhere, exactly as agreed on the call, 
 quote per person and raise her rate when she gets busy. Every call to action goes to
 a booking step rather than a checkout.
 
-The headline is written as direct response: "Get coached by a UFC veteran. Right here in
-Orlando." The audience, the proof and the place are all in the first line, which also
-matches what a local Google ad would say. Copy is aimed at women. On the Sept 22 call
-Hannah said she'd "keep it open to men and women, but cater it to women" for in-person
-work, so the page speaks to women and simply doesn't invite men. If she wants women
-only, that's a one-line addition. Includes local business schema markup so she ranks for
+The headline was first written as direct response: "Get coached by a UFC veteran. Right here in
+Orlando." Hannah then asked (Sept 23) for it to feel more personable and less intense,
+and not to say it's only for women. It now opens "Hi, I'm Hannah. Let's get you strong."
+and speaks to anyone. Includes local business schema markup so she ranks for
 Orlando searches before she spends anything on Google Ads.
 
 **Where the leads go.** Every enquiry is emailed straight to Hannah by a small
@@ -137,8 +136,10 @@ than the editor's.
 
 ## What Angel needs to do
 
-1. Buy `goldystandard.com` and `hannahgoldy.com`.
-2. Create `hello@goldystandard.com` and `hannah@hannahgoldy.com`.
+1. Buy `thegoldystandard.com` and `hannahgoldy.com` (and `goldystandard.com` as a redirect).
+2. Create `hello@thegoldystandard.com` and `hannah@hannahgoldy.com`. The members area
+   now uses `hello@thegoldystandard.com` for support. It used to point at
+   `thegoldstandardfitness.com`, a domain nobody owns, so those emails would have bounced.
 3. Prelaunch leads: create a GoHighLevel workflow, copy its inbound webhook URL into
    `prelaunch/config.js` under `LEAD_ENDPOINT`. GHL is needed here because this page
    has to store a list and send the five-email sequence automatically.
@@ -221,8 +222,13 @@ Every claim about Hannah matches the live sales page (last edited Apr 21, the da
 she corrected her credentials) or her own words on a recorded call:
 
 - Black belt, stated as "black belt" with no degree ("just put black belt", Apr 20).
-- No NASM claim anywhere. Angel pulled it on Apr 20 ("I'll have to change the NASM
-  stuff for now"). Add it back only once she has actually finished the certification.
+- NASM: one credential, Certified Personal Trainer. Angel pulled NASM on Apr 20 because
+  she hadn't finished; Hannah confirmed on Sept 23 that she now has it. Never write "4x"
+  (the old brand doc was wrong).
+- MMA for twelve years, ten of them as a pro (Hannah, Sept 23). Never "twelve years
+  pro". The live sales page said that in eleven places; all corrected.
+- Credentials bar, per Hannah: UFC Veteran, NASM Certified Trainer, BJJ Black Belt, Mom.
+  "Pro Fighter" was dropped because it repeated "UFC Veteran".
 - Her son, Odin: 180 to 115 pounds, fighting six months after he was born.
 - Hypothyroidism diagnosed at age ten.
 - No client results or testimonials yet (she said so on Apr 20), so the copy never

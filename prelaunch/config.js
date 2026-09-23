@@ -1,5 +1,5 @@
 /* ============================================================
-   THE GOLD STANDARD  Pre-launch config
+   THE GOLDY STANDARD  Pre-launch config
    ANGEL: this is the only file you need to edit before deploy.
    ============================================================ */
 window.GS_CONFIG = {
@@ -11,7 +11,7 @@ window.GS_CONFIG = {
   LEAD_ENDPOINT: "",
 
   // 2. Fallback address used if LEAD_ENDPOINT is empty or the POST fails.
-  FALLBACK_EMAIL: "hello@goldystandard.com",
+  FALLBACK_EMAIL: "hello@thegoldystandard.com",
 
   // 3. Founding offer shown on the page.
   FOUNDING_SPOTS: 100,

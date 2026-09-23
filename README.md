@@ -1,6 +1,6 @@
-# The Gold Standard by Hannah Goldy
+# The Goldy Standard by Hannah Goldy
 
-Premium sales page for The Gold Standard fitness program.
+Premium sales page for The Goldy Standard fitness program.
 
 ## Quick Start
 

@@ -3,13 +3,14 @@
 Five emails that go out automatically after someone signs up on the teaser page.
 Written in Hannah's voice: first person, direct, no filler.
 
-Send from: hello@goldystandard.com (display name "Hannah Goldy")
+Send from: hello@thegoldystandard.com (display name "Hannah Goldy")
 
 Every factual claim below is taken from the live sales page (`site/index.html`), the
 program data (`tools/pdf/prog-data.mjs`) or Hannah's own words on recorded calls.
-If you edit these, keep it that way. In particular: do not add NASM (pulled on the
-Apr 20 call until she finishes it) and do not imply she has client results yet (she
-said on the same call that she does not).
+If you edit these, keep it that way. Two specifics: she holds one NASM credential,
+Certified Personal Trainer (confirmed by Hannah on Sept 23), so never write "4x NASM".
+And do not imply she has client results yet (she said on the Apr 20 call that she
+does not). She has done MMA for twelve years, ten of them as a pro.
 
 ## Merge fields (GoHighLevel syntax)
 
@@ -33,7 +34,7 @@ the date moves.
 
 Hey {{contact.first_name}},
 
-You're on the founding list. When The Gold Standard opens, you get the full twelve-week
+You're on the founding list. When The Goldy Standard opens, you get the full twelve-week
 program for $197 instead of $297, and you get in before it goes public.
 
 You picked {{contact.gs_track}}. In a few days I'll send you exactly how that track is
@@ -59,16 +60,16 @@ Hannah
 Here's the part people leave out of the transformation posts.
 
 I was diagnosed with hypothyroidism when I was ten. It has made every pound harder to
-lose than it should be, my whole life. I still spent twelve years as a professional
-athlete and fought in the UFC.
+lose than it should be, my whole life. I've still spent twelve years in MMA, ten
+of them as a pro, and fought in the UFC.
 
 After I had my son I was 180 pounds. I got down to 115 and fought six months later.
 
 There was no trick to it. There was a system I had put together over twelve years of
-professional fighting, most of it learned the hard way, by doing things that did not
+fighting, most of it learned the hard way, by doing things that did not
 work until I found the things that did.
 
-The Gold Standard is that system. It is the thing I wish somebody had handed me at the
+The Goldy Standard is that system. It is the thing I wish somebody had handed me at the
 start.
 
 If your body has ever felt like it does not respond the way everyone promises it will,
@@ -206,7 +207,7 @@ Hannah
 
 {{contact.first_name}},
 
-The Gold Standard is open.
+The Goldy Standard is open.
 
 You are on the founding list, so your price is $197 instead of $297. That price is for
 the first 100 people. After that it goes to full price.

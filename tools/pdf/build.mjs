@@ -1,4 +1,4 @@
-/* Gold Standard resource PDF builder: branded HTML → headless Chrome → PDF
+/* Goldy Standard resource PDF builder: branded HTML → headless Chrome → PDF
    Run: node tools/pdf/build.mjs   (from repo root or anywhere) */
 import { FAT_LOSS, LEAN_MUSCLE, FIGHTER } from "./prog-data.mjs";
 import { SHEETS } from "./sheets-data.mjs";
@@ -81,13 +81,13 @@ tr:nth-child(even) td { background:#f6f2e7; }
 function pageWrap(title, subtitle, inner, extraPages = "") {
   return `<!DOCTYPE html><html><head><meta charset="utf8"><style>${CSS}</style></head><body>
   <div class="page">
-    <div class="head">${LOGO}<div><div class="brand">THE GOLD STANDARD · BY HANNAH GOLDY</div><h1>${title.toUpperCase()}</h1><div class="sub">${subtitle}</div></div></div>
+    <div class="head">${LOGO}<div><div class="brand">THE GOLDY STANDARD · BY HANNAH GOLDY</div><h1>${title.toUpperCase()}</h1><div class="sub">${subtitle}</div></div></div>
     ${inner}
-    <div class="foot"><span>THE GOLD STANDARD</span><span>BY HANNAH GOLDY</span></div>
+    <div class="foot"><span>THE GOLDY STANDARD</span><span>BY HANNAH GOLDY</span></div>
   </div>${extraPages}</body></html>`;
 }
 function extraPage(inner) {
-  return `<div class="page">${inner}<div class="foot"><span>THE GOLD STANDARD</span><span>BY HANNAH GOLDY</span></div></div>`;
+  return `<div class="page">${inner}<div class="foot"><span>THE GOLDY STANDARD</span><span>BY HANNAH GOLDY</span></div></div>`;
 }
 
 /* ---- program renderer: 2 framed pages per phase (Mon+Wed / Fri+Sat) ---- */

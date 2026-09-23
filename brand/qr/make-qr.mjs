@@ -1,4 +1,4 @@
-/* Generates branded QR codes for The Gold Standard.
+/* Generates branded QR codes for The Goldy Standard.
    Usage: node brand/qr/make-qr.mjs
    Requires: npm i qrcode   (installed to /tmp for this run) */
 import QRCode from '/tmp/node_modules/qrcode/lib/index.js';
@@ -9,8 +9,8 @@ const GOLD = '#E8C96A';
 const WHITE = '#FFFFFF';
 
 const targets = [
-  { file: 'qr-goldystandard-dark',  url: 'https://goldystandard.com',  fg: GOLD,  bg: NAVY  },
-  { file: 'qr-goldystandard-light', url: 'https://goldystandard.com',  fg: NAVY,  bg: WHITE },
+  { file: 'qr-thegoldystandard-dark',  url: 'https://thegoldystandard.com',  fg: GOLD,  bg: NAVY  },
+  { file: 'qr-thegoldystandard-light', url: 'https://thegoldystandard.com',  fg: NAVY,  bg: WHITE },
   { file: 'qr-hannahgoldy-dark',    url: 'https://hannahgoldy.com',    fg: GOLD,  bg: NAVY  },
   { file: 'qr-hannahgoldy-light',   url: 'https://hannahgoldy.com',    fg: NAVY,  bg: WHITE },
 ];

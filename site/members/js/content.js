@@ -1,5 +1,5 @@
 /* ============================================================
-   THE GOLD STANDARD — MEMBER AREA CONTENT MANIFEST
+   THE GOLDY STANDARD — MEMBER AREA CONTENT MANIFEST
    ============================================================
    HOW TO UPLOAD COURSE CONTENT:
    1. Upload the video to Google Drive.
@@ -23,16 +23,16 @@ const CONFIG = {
     "GOLDMUSCLE26":  ["lean-muscle"],
     "GOLDFIGHT26":   ["fighter"],
   },
-  supportEmail: "hello@thegoldstandardfitness.com",
+  supportEmail: "hello@thegoldystandard.com",
   /* Group coaching waitlist — swap for a GHL form/calendar link when ready */
-  groupWaitlistUrl: "mailto:hello@thegoldstandardfitness.com?subject=Group%20Coaching%20Waitlist",
+  groupWaitlistUrl: "mailto:hello@thegoldystandard.com?subject=Group%20Coaching%20Waitlist",
 };
 
 /* ---- Shared videos (filmed once, used in all 3 tracks) ---- */
 const SHARED = {
-  S1: { title: "Welcome to The Gold Standard", driveId: "1fFtkqvxG4fwwuI6BGHuXkZQhdXVCaC4P" },
+  S1: { title: "Welcome to The Goldy Standard", driveId: "1fFtkqvxG4fwwuI6BGHuXkZQhdXVCaC4P" },
   S2: { title: "Meet Hannah", driveId: "1X-gJNFYCLjwsLwZT4GNAZLUCQ0CHtonr" },
-  S3: { title: "The Gold Standard System and Commitment", driveId: "1B0I4eLDFC8XCwSnYZ5kths7pcl73rvZg" },
+  S3: { title: "The Goldy Standard System and Commitment", driveId: "1B0I4eLDFC8XCwSnYZ5kths7pcl73rvZg" },
   S4: { title: "Choosing Your Weight, Progressing, and Substitutions", driveId: "1zyzKy8ishslH-c8yiy1lzdP1S-GQEM-L" },
   S5: { title: "Warm-Up and Cool-Down System", driveId: "1zP3sh_dlwVZZ7jADNX-GqmJapaEYj8ry" },
   S6: { title: "Mindset, Sleep, Supplements, and Lifestyle", driveId: "15cL9SE9_Zlaxp0zLB-XsNF5KKtkCalML" },
@@ -43,7 +43,7 @@ function buildTrack(t) {
   return [
     { module: "Start Here", lessons: [
       { n: 1,  title: SHARED.S1.title, shared: "S1", desc: "Your official welcome. What this program is, how it works, and the commitment you're making to yourself." },
-      { n: 2,  title: SHARED.S2.title, shared: "S2", desc: "UFC veteran. BJJ black belt. Mom. Hannah's story and why she built The Gold Standard." },
+      { n: 2,  title: SHARED.S2.title, shared: "S2", desc: "UFC veteran. BJJ black belt. Mom. Hannah's story and why she built The Goldy Standard." },
       { n: 3,  title: `Welcome to ${t.name}`, driveId: (t.vids||{})[3] || "", desc: t.welcomeDesc },
       { n: 4,  title: SHARED.S3.title, shared: "S3", desc: "The three-track system, the philosophy behind it, and the commitment that makes it work." },
     ]},

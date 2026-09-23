@@ -111,7 +111,7 @@ export const LEAN_MUSCLE = {
   slug: "lean-muscle-program",
   title: "Lean Muscle Development",
   subtitle: "The 12-Week Training Program",
-  intro: "The Gold Standard Lean Muscle Program: progressive overload, strength development, hypertrophy training, and muscle recovery. Rest periods are longer to allow heavier lifting.",
+  intro: "The Goldy Standard Lean Muscle Program: progressive overload, strength development, hypertrophy training, and muscle recovery. Rest periods are longer to allow heavier lifting.",
   split: ["Monday — Lower Body Strength", "Wednesday — Upper Body Strength", "Friday — Hypertrophy + Accessories", "Saturday — Optional recovery cardio"],
   howTo: [
     "Rep ranges: Strength 4–6 reps · Hypertrophy 8–12 reps · Accessories 12–15 reps.",
