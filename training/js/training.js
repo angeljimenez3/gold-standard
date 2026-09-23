@@ -29,6 +29,13 @@
     reveals.forEach(function (el) { el.classList.add('in'); });
   }
 
+  /* ---------- Program link + "spots full" state ---------- */
+  $$('[data-program-link]').forEach(function (a) { if (CFG.PROGRAM_URL) { a.setAttribute('href', CFG.PROGRAM_URL); } });
+  if (CFG.ONE_ON_ONE_FULL) {
+    $$('[data-full-note]').forEach(function (n) { n.hidden = false; });
+    $$('[data-book]').forEach(function (a) { if (/free call/i.test(a.textContent)) { a.textContent = 'Join The Waitlist'; } });
+  }
+
   /* ---------- Booking links ----------
      If a real calendar URL exists, send people straight there.
      Otherwise every "book" button scrolls to the enquiry form. */

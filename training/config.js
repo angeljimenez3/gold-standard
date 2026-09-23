@@ -23,5 +23,16 @@ window.HG_CONFIG = {
   CITY: "Orlando",
   REGION: "FL",
 
-  SOURCE_TAG: "orlando-pt"
+  SOURCE_TAG: "orlando-pt",
+
+  // 5. The program: where "The Goldy Standard" links from the home page and from the
+  //    "spots full" message. Switch to https://thegoldystandard.com once it's bought.
+  PROGRAM_URL: "https://gold-standard-prelaunch.vercel.app",
+  //    One line under the program on the home page. Update it on launch day.
+  PROGRAM_NOTE: "Opening soon. The first 100 members get founding pricing.",
+
+  // 6. Set to true when Hannah can't take more one-on-one clients. The home page and the
+  //    training page then say her spots are full, offer the waitlist, and point people to
+  //    the program, where members can add private coaching calls. Set back to false to reopen.
+  ONE_ON_ONE_FULL: false
 };

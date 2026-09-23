@@ -222,3 +222,15 @@
 
 /* Spam honeypot: off-screen for people, still in the DOM for bots */
 .hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+
+/* Shown only when HG_CONFIG.ONE_ON_ONE_FULL is true */
+.full-note {
+  margin: 0 0 22px; padding: 14px 16px;
+  border-left: 3px solid var(--gold); border-radius: 0 4px 4px 0;
+  background: rgba(22,34,46,0.82); max-width: 60ch;
+}
+.full-note p { font-size: 15px; line-height: 1.6; color: var(--text-light); }
+.full-note__link {
+  display: inline-flex; align-items: center; gap: 6px; min-height: 44px; margin-top: 4px;
+  font-family: var(--font-accent); letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold);
+}

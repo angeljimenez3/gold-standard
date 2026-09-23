@@ -63,7 +63,29 @@ needed.
 
 Total page weight: 952 KB including photos.
 
-### 2. Orlando personal training page: `training/`
+### 2. hannahgoldy.com: home page + personal training (`training/`)
+
+Hannah's call (Sept 23): hannahgoldy.com is the front door for everything. The home page
+(`training/index.html`) opens with "Hi, I'm Hannah. What are you here for?" and offers
+two paths: **Personal Training** (`/training`) and **The Goldy Standard** program. Her
+reasoning covers the "local only" worry: personal training works remotely too, and the
+page shows no prices, so anyone can see it.
+
+Two settings in `training/config.js` drive this:
+
+- `PROGRAM_URL` / `PROGRAM_NOTE`: where "The Goldy Standard" goes and the line under it.
+  Point it at `https://thegoldystandard.com` once bought, and update the note on launch day.
+  Keep owning thegoldystandard.com: it's the brand, and Hannah wants the name for future
+  products (her example: Goldy Standard protein).
+- `ONE_ON_ONE_FULL`: flip to `true` when she can't take more one-on-one clients. Both
+  pages then say her spots are full, turn the button into "Join The Waitlist", and point
+  people to the program, where members can buy private coaching calls. This is the
+  overflow path Hannah described. Flip back to `false` to reopen.
+
+The business card QR goes straight to `/training` (it's her personal training card), while
+the printed URL, hannahgoldy.com, lands on the home page.
+
+#### The personal training page (`/training`)
 
 The separate site for her local and remote coaching, kept off her Instagram as she
 asked.

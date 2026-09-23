@@ -11,8 +11,8 @@ const WHITE = '#FFFFFF';
 const targets = [
   { file: 'qr-thegoldystandard-dark',  url: 'https://thegoldystandard.com',  fg: GOLD,  bg: NAVY  },
   { file: 'qr-thegoldystandard-light', url: 'https://thegoldystandard.com',  fg: NAVY,  bg: WHITE },
-  { file: 'qr-hannahgoldy-dark',    url: 'https://hannahgoldy.com',    fg: GOLD,  bg: NAVY  },
-  { file: 'qr-hannahgoldy-light',   url: 'https://hannahgoldy.com',    fg: NAVY,  bg: WHITE },
+  { file: 'qr-hannahgoldy-dark',    url: 'https://hannahgoldy.com/training',    fg: GOLD,  bg: NAVY  },
+  { file: 'qr-hannahgoldy-light',   url: 'https://hannahgoldy.com/training',    fg: NAVY,  bg: WHITE },
 ];
 
 mkdirSync(new URL('.', import.meta.url), { recursive: true });
