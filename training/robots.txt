@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://hannahgoldy.com/sitemap.xml

@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "prelaunch",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "4501", "--directory", "prelaunch"],
+      "port": 4501
+    },
+    {
+      "name": "training",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "4502", "--directory", "training"],
+      "port": 4502
+    }
+  ]
+}

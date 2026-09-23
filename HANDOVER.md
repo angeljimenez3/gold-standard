@@ -1,0 +1,253 @@
+# Build from the Sept 22 call with Hannah
+
+Everything Hannah asked for on the Sept 22 resync, built and tested.
+Source call: https://app.fireflies.ai/view/01M35473GASSVHV0GKFWHY51YY
+
+---
+
+## The domain answer she is waiting on
+
+She believed "The Goldie Standard" was available. It is not.
+
+| Domain | Status |
+|---|---|
+| thegoldiestandard.com | Registered 2009, GoDaddy, held through 2027 |
+| goldiestandard.com | Registered 2011, GoDaddy, held through 2027 |
+| thegoldstandard.com | Registered |
+| **goldystandard.com** | **Available** |
+| **hannahgoldy.com** | **Available** |
+| thegoldystandard.com | Available |
+| goldystandardfitness.com | Available |
+
+Recommendation: buy `goldystandard.com` and `hannahgoldy.com`, and do not rebrand.
+
+The URL `goldystandard.com` reads as her name, which is the pun she wanted, while the
+spoken brand stays "The Gold Standard." That matters because every video she has
+already filmed says "the gold standard" out loud. Changing the spelling of the brand
+would leave the audio slightly off from the branding forever, for no gain. She asked
+Angel on the call whether the rename was a big deal; the honest answer is that she
+does not need one. She needs a URL, and this gets her one for about twelve dollars.
+
+`hannahgoldy.com` covers the second business. A program sold to strangers should be
+named for the promise. A local service where someone is buying her time should be
+named for her, because that is what a person remembers after meeting her at a gym.
+
+---
+
+## What was built
+
+### 1. Pre-launch teaser page: `prelaunch/`
+
+The cover site she wanted to post on Instagram now. Mobile first, since effectively
+all traffic arrives from a story link.
+
+Flow: visitor lands, picks which of the three tracks they want, and that reveals the
+email capture with the founding offer. The poll answer is stored with the lead, which
+gives her the read on which program would sell best that she said she was curious
+about.
+
+Founding offer on the page: first 100 members at $197 instead of $297.
+
+Safety behavior worth knowing: if the lead endpoint is missing, unreachable or returns
+an error, the page does not show a false success. It hands the visitor a prefilled
+email link instead. This is tested.
+
+One gap nothing on the page can close: GoHighLevel answers HTTP 200 with
+`"Success: test request received"` even for a webhook ID that does not exist (checked
+Sept 23 against a made-up ID). A typo in the webhook URL would show visitors the
+"You're in" screen while every lead vanishes. That is why the live test in the
+checklist below is required, not optional. GHL does accept browser posts from any
+origin (its CORS preflight returns `Access-Control-Allow-Origin: *`), so no proxy is
+needed.
+
+Total page weight: 952 KB including photos.
+
+### 2. Orlando personal training page: `training/`
+
+The separate site for her local and remote coaching, kept off her Instagram as she
+asked.
+
+Three services, the three Hannah named on the call: one-on-one training in Orlando,
+online coaching, and private jiu-jitsu and MMA. Nutrition is folded into the first two
+rather than sold as its own service, since she never offered it separately. Online
+coaching describes what she already sells remotely per the Apr 20 call (a custom
+program plus a weekly call). No prices anywhere, exactly as agreed on the call, so she can
+quote per person and raise her rate when she gets busy. Every call to action goes to
+a booking step rather than a checkout.
+
+The headline is written as direct response: "Get coached by a UFC veteran. Right here in
+Orlando." The audience, the proof and the place are all in the first line, which also
+matches what a local Google ad would say. Copy is aimed at women. On the Sept 22 call
+Hannah said she'd "keep it open to men and women, but cater it to women" for in-person
+work, so the page speaks to women and simply doesn't invite men. If she wants women
+only, that's a one-line addition. Includes local business schema markup so she ranks for
+Orlando searches before she spends anything on Google Ads.
+
+**Where the leads go.** Every enquiry is emailed straight to Hannah by a small
+server function (`training/api/lead.js`, served at `/api/lead`). No CRM needed. The email
+is built for her phone: the lead's name and what they want at the top, one-tap "Call"
+and "Text" buttons, and the lead's address set as Reply-To so she can just hit reply.
+Preview: `marketing/lead-email-preview.html`. Phone number is required on the form. The
+function checks every field again on the server, silently drops spam bots through a
+hidden honeypot field, and escapes anything a visitor types so no one can inject HTML into
+her inbox. If sending fails for any reason, the visitor gets the email-link fallback
+instead of a false "sent".
+
+### 3. Instagram story graphics: `brand/export/`
+
+Five ready to post, 1080x1920, already exported as PNG:
+
+- `story-01-coming-soon.png`
+- `story-02-pick-your-track.png`
+- `story-03-founding-100.png`
+- `story-04-why-listen.png`
+- `story-05-orlando-training.png`
+
+Text sits inside the safe area so Instagram's own chrome does not cover it. Source
+HTML is in `brand/stories/` if any copy needs changing; re-export with the command in
+the rebuild section below.
+
+Per Angel's advice on the call, these are the follow-up graphic, not the lead. She
+talks to camera first, then posts the graphic so people who skipped the video still
+get the summary.
+
+### 4. Business cards: `brand/export/`
+
+`business-card-front.png` and `business-card-back.png`, 1125x675 px, which is
+3.5 x 2 inches at 300 dpi with a 0.125 inch bleed. Ready for any printer.
+
+The QR code on the back points to hannahgoldy.com and has been decoded from the final
+exported PNG to confirm it scans. Spare QR files in four colorways are in `brand/qr/`.
+
+### 5. Pre-launch email sequence: `marketing/email-sequence.md`
+
+Five emails in her voice, triggered by the teaser signup, with GoHighLevel setup notes
+and the exact JSON the form posts. Email 3 branches by track and delivers the
+phase-by-phase layout the teaser page promises, taken from the real program data.
+Merge fields use GHL's `{{contact.*}}` syntax.
+
+### 6. Message to the editor: `marketing/editor-brief.md`
+
+Settles the payment question and briefs the QC pass. Covers all three mislabeled
+videos she named, the missing variations, the song lyrics in the captions, and the
+wrong "H Goldie" tag. Also separates out the two items that are Angel's problem rather
+than the editor's.
+
+---
+
+## What Angel needs to do
+
+1. Buy `goldystandard.com` and `hannahgoldy.com`.
+2. Create `hello@goldystandard.com` and `hannah@hannahgoldy.com`.
+3. Prelaunch leads: create a GoHighLevel workflow, copy its inbound webhook URL into
+   `prelaunch/config.js` under `LEAD_ENDPOINT`. GHL is needed here because this page
+   has to store a list and send the five-email sequence automatically.
+4. Training leads, straight to Hannah's inbox:
+   - Create a free account at resend.com and add `hannahgoldy.com` as a sending domain.
+     Resend gives you a few DNS records to paste in wherever the domain is registered.
+     Wait until it shows "Verified".
+   - Create an API key in Resend.
+   - In the Vercel project for `training/`, add three environment variables:
+     `RESEND_API_KEY` (the key), `LEAD_TO_EMAIL` (the inbox Hannah actually checks, most
+     likely the Gmail she uses for your Zoom calls), and optionally
+     `LEAD_FROM_EMAIL` (defaults to `Hannah Goldy Website <leads@hannahgoldy.com>`).
+   - Optional: put her booking calendar link and phone number in `training/config.js`
+     to turn on the "Book A Call", "Call Me" and "Text Me" buttons.
+5. Deploy each folder to its own domain.
+6. Build the email sequence from `marketing/email-sequence.md`.
+7. **Test both forms live from your phone before Hannah posts anything.** On the
+   prelaunch page, confirm the contact lands in GHL with the right track (see the note
+   under section 1 for why this cannot be skipped). On the training page, confirm the
+   lead email reaches Hannah. If it goes to spam the first time, have her mark it "Not
+   spam" once so Gmail learns.
+8. Send the editor brief.
+9. Fix the members area video enlargement bug on mobile. Hannah reported it at the top
+   of the call and it is the one item here that affects paying customers.
+
+Deploy:
+
+```bash
+cd prelaunch && npx vercel --prod
+```
+
+```bash
+cd training && npx vercel --prod
+```
+
+---
+
+## Preview locally
+
+```bash
+cd /Users/AAJR/gold-standard && python3 -m http.server 4501 --directory prelaunch
+```
+
+```bash
+cd /Users/AAJR/gold-standard && python3 -m http.server 4502 --directory training
+```
+
+That serves the page only. The `/api/lead` function runs on Vercel, so locally the form
+shows its email-link fallback. That's expected.
+
+## Rebuild the graphics after a copy change
+
+```bash
+cd /Users/AAJR/gold-standard/brand/stories && python3 -m http.server 4503
+```
+
+```bash
+cd /Users/AAJR/gold-standard/brand && for f in 01-coming-soon 02-pick-your-track 03-founding-100 04-why-listen 05-orlando-training; do "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless --disable-gpu --hide-scrollbars --window-size=1080,1920 --screenshot="export/story-$f.png" --virtual-time-budget=4000 "http://localhost:4503/$f.html"; done
+```
+
+Regenerate QR codes after a domain change:
+
+```bash
+cd /tmp && npm install qrcode && cd /Users/AAJR/gold-standard && node brand/qr/make-qr.mjs
+```
+
+---
+
+## Notes on the assets
+
+The original photos in `site/assets/` are 1 to 2 MB PNGs, about 31 MB in total. Six of
+them had Instagram carousel arrows and dots baked in from being screenshotted. Those
+are cropped out in `site/assets/clean/`, and web-sized JPEGs for all of them are in
+`site/assets/opt/`, which brought the set down to 3.4 MB. The new pages use the
+optimized copies. The originals are untouched.
+
+## Where the facts come from
+
+Every claim about Hannah matches the live sales page (last edited Apr 21, the day after
+she corrected her credentials) or her own words on a recorded call:
+
+- Black belt, stated as "black belt" with no degree ("just put black belt", Apr 20).
+- No NASM claim anywhere. Angel pulled it on Apr 20 ("I'll have to change the NASM
+  stuff for now"). Add it back only once she has actually finished the certification.
+- Her son, Odin: 180 to 115 pounds, fighting six months after he was born.
+- Hypothyroidism diagnosed at age ten.
+- No client results or testimonials yet (she said so on Apr 20), so the copy never
+  implies any.
+- Program structure (three training days plus an optional Saturday, three four-week
+  phases, phase names per track) comes from `tools/pdf/prog-data.mjs`.
+
+## Git
+
+None of this is committed. To commit only the new work, without the untracked members
+area, invoice PDF and tooling already sitting in the repo:
+
+```bash
+git add prelaunch training brand marketing HANDOVER.md .claude/launch.json site/assets/clean site/assets/opt
+```
+
+## Tested
+
+Both pages were checked in a browser at phone and desktop width. The poll, the
+validation, the successful submission and the failure fallback were each exercised,
+and visibility was checked on the rendered page rather than just the `hidden`
+property. That second check is what caught a real bug in the first build: component
+styles overrode `hidden`, so a dead "Call" button showed with no phone configured and
+the form stayed on screen after a successful submit. Both are fixed. The training
+page's booking card was tested in all four setups (no config, phone only, calendar
+only, both). No images missing alt text, no tap target under 44 px, heading order
+correct. The business card QR was decoded from the final exported print file. Both
+domains were re-checked as unregistered on Sept 23.
