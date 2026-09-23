@@ -1,0 +1,4 @@
+# Only the site/ folder is deployed for this project (Root Directory = site).
+# Keeps deliverables, other sites and local env files out of Vercel uploads.
+/*
+!/site
