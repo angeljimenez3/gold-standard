@@ -4,3 +4,8 @@
 .env.local
 node_modules/
 .vercel/
+
+# Billing stays out of git (this repo is public): invoices, client reports,
+# and the script that generates them. Files are kept locally only.
+deliverables/
+tools/pdf/milestone.mjs
