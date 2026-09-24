@@ -98,7 +98,7 @@
 .about { background: var(--navy-deep); border-block: 1px solid var(--border-gold); }
 .about__grid { display: grid; gap: clamp(28px, 6vw, 56px); align-items: center; }
 @media (min-width: 880px) { .about__grid { grid-template-columns: 0.85fr 1.15fr; } }
-.about__img { border-radius: 4px; overflow: hidden; border: 1px solid var(--border-gold); }
+.about__img { border-radius: 4px; overflow: hidden; border: 1px solid var(--border-gold); background: var(--navy-deep); }
 .about__img img { width: 100%; aspect-ratio: 4/5; object-fit: cover; object-position: 50% 18%; }
 .about__body .lede + .lede { margin-top: 16px; }
 .about__cta { margin-top: 28px; }
