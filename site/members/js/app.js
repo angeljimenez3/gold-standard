@@ -89,7 +89,7 @@
       ${inner}
       <nav class="mobile-nav">
         <a href="#/dashboard" class="${active === "dash" ? "active" : ""}">Home</a>
-        ${COURSES.map((c) => `<a href="#/course/${c.id}" class="${active === c.id ? "active" : ""}">${esc(c.navLabel.replace("Lean ", ""))}</a>`).join("")}
+        ${COURSES.map((c) => `<a href="#/course/${c.id}" class="${active === c.id ? "active" : ""}">${esc(c.navLabel.replace("Build ", ""))}</a>`).join("")}
         <a href="#/library" class="${active === "lib" ? "active" : ""}">Library</a>
       </nav>`;
   }

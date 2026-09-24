@@ -10,7 +10,7 @@
   var CFG = window.GS_CONFIG || {};
   var TRACKS = {
     'fat-loss':    'Fat Loss',
-    'lean-muscle': 'Lean Muscle',
+    'lean-muscle': 'Build Muscle',
     'fighter':     'Fighter Conditioning'
   };
 

@@ -164,7 +164,7 @@ function renderLog(sh) {
     ${Array.from({ length: 6 }, () => `<tr class="wk-row"><td></td><td></td><td></td><td></td><td></td><td></td></tr>`).join("")}</table>`;
   const first = `
     <p class="intro">Log weight x reps for every working set (example: 135 x 8). Aim to beat something small every week: a rep, a little weight, or a shorter rest.</p>
-    <div class="fill"><div>Week #: ________&nbsp;&nbsp;&nbsp;Phase: ☐ 1&nbsp;&nbsp;☐ 2&nbsp;&nbsp;☐ 3&nbsp;&nbsp;&nbsp;Track: ☐ Fat Loss&nbsp;&nbsp;☐ Lean Muscle&nbsp;&nbsp;☐ Fighter</div></div>
+    <div class="fill"><div>Week #: ________&nbsp;&nbsp;&nbsp;Phase: ☐ 1&nbsp;&nbsp;☐ 2&nbsp;&nbsp;☐ 3&nbsp;&nbsp;&nbsp;Track: ☐ Fat Loss&nbsp;&nbsp;☐ Build Muscle&nbsp;&nbsp;☐ Fighter</div></div>
     ${day("MONDAY")}${day("WEDNESDAY")}`;
   const p2 = extraPage(`${day("FRIDAY")}${day("SATURDAY (OPTIONAL)")}
     <p class="eyebrow">CONDITIONING NOTES</p>

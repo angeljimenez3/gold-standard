@@ -29,7 +29,7 @@ window.HG_CONFIG = {
   //    "spots full" message. Switch to https://thegoldystandard.com once it's bought.
   PROGRAM_URL: "https://gold-standard-prelaunch.vercel.app",
   //    One line under the program on the home page. Update it on launch day.
-  PROGRAM_NOTE: "Opening soon. The first 100 members get founding pricing.",
+  PROGRAM_NOTE: "Opening Soon: The first 100 members get early access pricing.",
 
   // 6. Set to true when Hannah can't take more one-on-one clients. The home page and the
   //    training page then say her spots are full, offer the waitlist, and point people to

@@ -249,8 +249,15 @@ she corrected her credentials) or her own words on a recorded call:
   (the old brand doc was wrong).
 - MMA for twelve years, ten of them as a pro (Hannah, Sept 23). Never "twelve years
   pro". The live sales page said that in eleven places; all corrected.
-- Credentials bar, per Hannah: UFC Veteran, NASM Certified Trainer, BJJ Black Belt, Mom.
-  "Pro Fighter" was dropped because it repeated "UFC Veteran".
+- Credentials bar, per Hannah's notes doc (Sept 24): UFC Veteran, BJJ Black Belt, NASM
+  Certified Personal Trainer, 12+ Years in Combat Sports. "Mom" is out of the bar because
+  it's in the intro and her story. Same bar on the teaser, training page and sales page.
+- She trains in person in **Orlando and Dallas**, and online anywhere.
+- The muscle track is called **Build Muscle** (was "Lean Muscle"). Only display names
+  changed: the `lean-muscle` slug, access code, and PDF file names stay the same so
+  member progress and signup data are unaffected.
+- Site copy on the home, training and program pages is Hannah's own wording from her
+  notes doc, with typos fixed only.
 - Her son, Odin: 180 to 115 pounds, fighting six months after he was born.
 - Hypothyroidism diagnosed at age ten.
 - No client results or testimonials yet (she said so on Apr 20), so the copy never

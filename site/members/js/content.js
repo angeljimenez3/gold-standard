@@ -107,8 +107,8 @@ const COURSES = [
   },
   {
     id: "lean-muscle",
-    name: "Lean Muscle Development",
-    navLabel: "Lean Muscle",
+    name: "Build Muscle",
+    navLabel: "Build Muscle",
     tagline: "Build lean muscle and real strength with progressive overload.",
     badge: "TRACK 02",
     price: "$297",
@@ -117,7 +117,7 @@ const COURSES = [
     programPdf: "lean-muscle-program.pdf",
     weeks: 12,
     modules: buildTrack({
-      name: "Lean Muscle Development",
+      name: "Build Muscle",
       slug: "lean-muscle",
       vids: { 3:"14hsieD40MrQ758HTiQE2zON_-s_Ru4qn", 5:"1GFUqqRiVxe3xknZ8zpaeyJTyMDVzs3QL", 6:"1VR8FOpy6wtWDOo7sLoFKlcFk6pxw1hr3", 7:"1mYFUzLwPyl0M-UWJ2OXCTN6cuMgShdRj", 8:"1JNWHvwqoKTESCMqGKebwAztS7kobUnfs", 11:"1FUmJQlxwA-pj5hAzTTKmdMWbRPcNNIQX", 12:"1RyIL_znbYJltSxzr5aotlgfPHNq-JUF7", 13:"14Mc7eaUsPzlztpaLaDAeDXy_BF4wI5JT", 14:"1qof9hIJGqF3oyZfGJY05Yr9Druze1jK5", 15:"1QLwFCLDVcmQ7Ql8jFTOZaI3wvaMjhEm3", 17:"1UVz9tKL-Mcrmy5vmaKOJvEPj8on7HXK-" },
       progFile: "lean-muscle-program.pdf",

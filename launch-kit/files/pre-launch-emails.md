@@ -1,6 +1,6 @@
 # Your pre-launch emails
 
-These go out automatically to everyone who signs up on the teaser page. They are written in your voice, so read them like you would say them and flag anything that does not sound like you. In this copy the reader is a sample signup named Maria who picked Lean Muscle; each person gets their own name and track.
+These go out automatically to everyone who signs up on the teaser page. They are written in your voice, so read them like you would say them and flag anything that does not sound like you. In this copy the reader is a sample signup named Maria who picked Build Muscle; each person gets their own name and track.
 
 Email 3 has three versions, one per track. Everyone gets only the version for the track they picked.
 
@@ -17,7 +17,7 @@ Hey Maria,
 You're on the founding list. When The Goldy Standard opens, you get the full twelve-week
 program for $197 instead of $297, and you get in before it goes public.
 
-You picked Lean Muscle. In a few days I'll send you exactly how that track is
+You picked Build Muscle. In a few days I'll send you exactly how that track is
 laid out, phase by phase, so you know what you are signing up for before you pay a
 cent.
 
@@ -63,7 +63,7 @@ Hannah
 
 ## Email 3: sends 5 days after signup
 
-**Subject:** Your Lean Muscle plan, week by week
+**Subject:** Your Build Muscle plan, week by week
 
 **Preview text:** Three phases, three training days a week, and what changes in each.
 
@@ -92,9 +92,9 @@ more demanding.
 Monday is lower body and conditioning, Wednesday is upper body and conditioning, Friday
 is full body strength with metabolic work, and Saturday is optional cardio.
 
-**If they picked Lean Muscle:**
+**If they picked Build Muscle:**
 
-Your track is Lean Muscle Development. It is built on progressive overload, strength
+Your track is Build Muscle. It is built on progressive overload, strength
 work and hypertrophy, with longer rest periods so you can lift heavier.
 
 Weeks 1 to 4, Muscle Foundation. You build your strength base and your movement
@@ -189,7 +189,7 @@ the first 100 people. After that it goes to full price.
 
 Here is your link: (the checkout link goes here on launch day)
 
-You picked Lean Muscle, and that is the track waiting for you when you log in.
+You picked Build Muscle, and that is the track waiting for you when you log in.
 
 Twelve weeks from now you could be in the best shape of your life. The only part I
 cannot do for you is start.

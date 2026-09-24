@@ -98,9 +98,9 @@ export const SHEETS = [
       ], fill: ["My maintenance calories: ______________"] },
       { h: "STEP 2 — SET YOUR TARGET", type: "list", items: [
         "Fat Loss: set calories slightly BELOW maintenance. Fat loss occurs when your body burns more calories than it consumes over time — a calorie deficit.",
-        "Lean Muscle: set calories in a SMALL surplus — slightly more than your body burns. The surplus should be controlled and moderate. Don't go crazy.",
+        "Build Muscle: set calories in a SMALL surplus — slightly more than your body burns. The surplus should be controlled and moderate. Don't go crazy.",
         "Fighter Conditioning: fuel performance. No extreme dieting — provide your body the nutrients and calories needed to perform at a high level.",
-      ], fill: ["My goal: ☐ Fat Loss  ☐ Lean Muscle  ☐ Performance", "My daily calorie target: ______________"] },
+      ], fill: ["My goal: ☐ Fat Loss  ☐ Build Muscle  ☐ Performance", "My daily calorie target: ______________"] },
       { h: "STEP 3 — SET YOUR MACROS (Hannah's guidelines)", type: "list", items: [
         "Protein: HIGH — supports muscle retention, recovery, and keeps you full. Include a quality protein source in each meal.",
         "Carbohydrates: MODERATE — energy for training. Eat your heavier-carb meals in the morning and before your workout.",
@@ -143,7 +143,7 @@ export const SHEETS = [
     ],
   },
   {
-    slug: "eating-guide-lean-muscle", title: "Eating Guide — Lean Muscle", subtitle: "A full day of eating, snacks & eating out",
+    slug: "eating-guide-lean-muscle", title: "Eating Guide — Build Muscle", subtitle: "A full day of eating, snacks & eating out",
     sections: [
       { h: "WHAT A FULL DAY OF EATING MIGHT LOOK LIKE", type: "table", cols: ["Meal", "Example"], rows: [
         ["Breakfast", "Eggs, oatmeal, and fruit"],

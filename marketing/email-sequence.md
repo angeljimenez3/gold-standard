@@ -18,7 +18,7 @@ does not). She has done MMA for twelve years, ten of them as a pro.
 - `{{contact.gs_track}}`: a custom field. Create it in GHL as a single-line text field
   named "GS Track" (GHL will give it the key `gs_track`; if it gives a different key,
   swap it in below). The teaser form already sends the display name as `trackLabel`
-  ("Fat Loss", "Lean Muscle" or "Fighter Conditioning"), so map `trackLabel` straight
+  ("Fat Loss", "Build Muscle" or "Fighter Conditioning"), so map `trackLabel` straight
   into this field with no conversion.
 
 Timing assumes launch is roughly two weeks after the first signups. Shift the gaps if
@@ -117,9 +117,9 @@ more demanding.
 Monday is lower body and conditioning, Wednesday is upper body and conditioning, Friday
 is full body strength with metabolic work, and Saturday is optional cardio.
 
-**[IF track = Lean Muscle]**
+**[IF track = Build Muscle]**
 
-Your track is Lean Muscle Development. It is built on progressive overload, strength
+Your track is Build Muscle. It is built on progressive overload, strength
 work and hypertrophy, with longer rest periods so you can lift heavier.
 
 Weeks 1 to 4, Muscle Foundation. You build your strength base and your movement

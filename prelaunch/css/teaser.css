@@ -91,12 +91,7 @@
   display: grid; grid-template-columns: repeat(2, 1fr);
   gap: 1px; background: var(--border-gold);
 }
-/* Five cells: two columns on phones with "Mom" spanning the last row, one row from 720px */
-.cred--wide { grid-column: 1 / -1; }
-@media (min-width: 720px) {
-  .creds__grid { grid-template-columns: repeat(5, 1fr); }
-  .cred--wide { grid-column: auto; }
-}
+@media (min-width: 720px) { .creds__grid { grid-template-columns: repeat(4, 1fr); } }
 .cred {
   background: var(--navy-deep);
   padding: 26px 12px; text-align: center;
