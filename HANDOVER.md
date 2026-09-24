@@ -189,6 +189,21 @@ than the editor's.
 
 Deploy:
 
+How the four Vercel projects are set up (important):
+
+| Project | Folder | How it deploys |
+|---|---|---|
+| gold-standard (sales page + members) | `site/` | Git push to `main`, or `vercel deploy --prod` from the repo root |
+| gold-standard-prelaunch | `prelaunch/` | CLI only, run inside `prelaunch/` |
+| hannah-goldy-training (hannahgoldy.com) | `training/` | CLI only, run inside `training/` |
+| hannah-launch-kit | `launch-kit/` | CLI only, run inside `launch-kit/` |
+
+The three CLI-only projects are deliberately **not** connected to GitHub. Vercel
+auto-connected them when they were created, and the first `git push` then made each one
+deploy the whole repo instead of its folder, which took all three sites down (404) until
+they were disconnected and redeployed (Sept 24). If you ever reconnect them to Git, set
+each project's Root Directory to its folder first.
+
 ```bash
 cd prelaunch && npx vercel --prod
 ```
