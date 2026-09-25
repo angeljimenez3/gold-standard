@@ -22,6 +22,7 @@
   $$('[data-price]').forEach(function (el) { el.textContent = CFG.FOUNDING_PRICE || 197; });
   $$('[data-full]').forEach(function (el)  { el.textContent = CFG.FULL_PRICE || 297; });
   var yr = $('#yr'); if (yr) { yr.textContent = new Date().getFullYear(); }
+  if (CFG.HOME_URL) { $$('[data-home-link]').forEach(function (a) { a.setAttribute('href', CFG.HOME_URL); }); }
 
   /* ---------- Sticky header ---------- */
   var hdr = $('.hdr');

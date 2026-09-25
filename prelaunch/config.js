@@ -22,6 +22,9 @@ window.GS_CONFIG = {
   //    Leave empty to hide the countdown entirely.
   LAUNCH_DATE: "",
 
-  // 5. Tag every lead from this page (useful once you run more than one source).
+  // 5. Where the GS logo goes: Hannah's home page. Switch to https://hannahgoldy.com once bought.
+  HOME_URL: "https://hannah-goldy-training.vercel.app",
+
+  // 6. Tag every lead from this page (useful once you run more than one source).
   SOURCE_TAG: "prelaunch-teaser"
 };
