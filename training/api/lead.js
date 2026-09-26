@@ -19,7 +19,7 @@ const GOALS = [
   'One-on-one training in Dallas',
   'Online coaching',
   'Private jiu-jitsu or MMA',
-  'Self-defense seminar for a group',
+  'Seminar or group training',
   'Not sure yet'
 ];
 
@@ -96,7 +96,7 @@ function validateLead(body) {
 // "wants online coaching", but "isn't sure yet which option fits" for the undecided.
 function goalPhrase(goal) {
   if (goal === 'Not sure yet') { return "isn't sure yet which option fits"; }
-  if (goal === 'Self-defense seminar for a group') { return 'wants a self-defense seminar for a group'; }
+  if (goal === 'Seminar or group training') { return 'wants a seminar or group training'; }
   return 'wants ' + goal.charAt(0).toLowerCase() + goal.slice(1);
 }
 

@@ -93,6 +93,10 @@
   text-transform: uppercase; color: var(--text-dim); margin-bottom: 14px;
 }
 .svc p:not(.svc__where) { font-size: 15px; line-height: 1.68; color: var(--text-dim); }
+.svc .svc__tags {
+  font-family: var(--font-accent); font-size: 16px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--gold); margin: -6px 0 12px;
+}
 
 /* ---------- About ---------- */
 .about { background: var(--navy-deep); border-block: 1px solid var(--border-gold); }
