@@ -66,3 +66,33 @@
   font-family: var(--font-accent); font-size: 13px; letter-spacing: 0.16em;
   color: var(--navy); background: var(--gold); padding: 3px 8px; border-radius: 3px;
 }
+
+/* ---------- Desktop hero: photo in a framed panel ----------
+   The source photos top out around 1,400px, so a full-bleed background has to be
+   stretched 1.4-1.8x on a desktop screen (up to 3.7x on Retina) and looks pixelated.
+   From 960px up the photo sits in a panel on the right at or below its real size,
+   and the headline gets its own column instead of sitting on top of her face. */
+@media (min-width: 960px) {
+  .home__hero {
+    min-height: 0; align-items: center;
+    padding: 150px 0 110px;
+    background:
+      radial-gradient(70% 60% at 82% 38%, rgba(232,201,106,0.09), transparent 62%),
+      var(--navy);
+  }
+  .home__scrim { display: none; }
+  .home__media {
+    left: auto; bottom: auto;
+    top: 118px;
+    right: max(var(--gutter), calc((100vw - 1140px) / 2 + var(--gutter)));
+    width: min(38vw, 460px);
+    height: calc(100% - 196px);
+    max-height: 620px;
+    border-radius: 6px; overflow: hidden;
+    border: 1px solid var(--border-gold);
+    box-shadow: var(--shadow-lg);
+  }
+  .home__media img { object-position: 64% 32%; }
+  .home__intro { padding-right: calc(min(38vw, 460px) + 64px + var(--gutter)); }
+  .home__intro h1, .home__intro .lede { text-shadow: none; }
+}

@@ -23,7 +23,7 @@ window.GS_CONFIG = {
   LAUNCH_DATE: "",
 
   // 5. Where the GS logo goes: Hannah's home page. Switch to https://hannahgoldy.com once bought.
-  HOME_URL: "https://hannah-goldy-training.vercel.app",
+  HOME_URL: "https://hannahgoldy.com",
 
   // 6. Tag every lead from this page (useful once you run more than one source).
   SOURCE_TAG: "prelaunch-teaser"

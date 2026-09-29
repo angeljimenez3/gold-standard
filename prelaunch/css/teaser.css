@@ -90,6 +90,7 @@
 .creds__grid {
   display: grid; grid-template-columns: repeat(2, 1fr);
   gap: 1px; background: var(--border-gold);
+  background-clip: content-box; /* divider color only between cells, not in the side padding */
 }
 @media (min-width: 720px) { .creds__grid { grid-template-columns: repeat(4, 1fr); } }
 .cred {
@@ -262,4 +263,35 @@
   border-left: 3px solid var(--gold);
   padding: 13px 16px; border-radius: 0 3px 3px 0;
   font-size: 15px; margin-bottom: 22px;
+}
+
+/* ---------- Desktop hero: photo in a framed panel ----------
+   The source photos top out around 1,400px, so a full-bleed background has to be
+   stretched 1.4-1.8x on a desktop screen (up to 3.7x on Retina) and looks pixelated.
+   From 960px up the photo sits in a panel on the right at or below its real size,
+   and the headline gets its own column instead of sitting on top of her face. */
+@media (min-width: 960px) {
+  .hero {
+    min-height: 0; align-items: center;
+    padding: 150px 0 110px;
+    background:
+      radial-gradient(70% 60% at 82% 38%, rgba(232,201,106,0.09), transparent 62%),
+      var(--navy);
+  }
+  .hero__scrim { display: none; }
+  .hero__media {
+    left: auto; bottom: auto;
+    top: 118px;
+    right: max(var(--gutter), calc((100vw - 1140px) / 2 + var(--gutter)));
+    width: min(38vw, 460px);
+    height: calc(100% - 196px);
+    max-height: 620px;
+    border-radius: 6px; overflow: hidden;
+    border: 1px solid var(--border-gold);
+    box-shadow: var(--shadow-lg);
+  }
+  .hero__media img { object-position: 50% 20%; }
+  .hero__in { padding-right: calc(min(38vw, 460px) + 64px + var(--gutter)); }
+  .hero__in h1, .hero__in .lede { text-shadow: none; }
+  .hero__cue { display: none; }
 }
