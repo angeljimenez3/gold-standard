@@ -89,7 +89,7 @@
   function validEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v); }
 
   function mailtoFallback(p) {
-    var to = CFG.EMAIL || 'hannah@hannahgoldy.com';
+    var to = CFG.EMAIL || 'hannahgoldy@hannahgoldy.com';
     var body = 'Name: ' + p.name + '\nEmail: ' + p.email +
                '\nPhone: ' + (p.phone || '-') +
                '\nInterested in: ' + p.goal +

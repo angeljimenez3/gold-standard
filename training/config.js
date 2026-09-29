@@ -17,7 +17,7 @@ window.HG_CONFIG = {
 
   // 3. Direct contact. Leave a field empty to hide that button.
   PHONE: "",                                  // e.g. "+14075551234"  enables call + text buttons
-  EMAIL: "hannah@hannahgoldy.com",
+  EMAIL: "hannahgoldy@hannahgoldy.com",
 
   // 4. Service area shown in copy and in the local-business schema.
   CITY: "Orlando",
