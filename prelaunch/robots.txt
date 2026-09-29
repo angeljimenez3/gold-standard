@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://thegoldystandard.com/sitemap.xml
+Sitemap: https://hannahgoldy.com/sitemap.xml

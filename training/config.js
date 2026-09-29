@@ -26,8 +26,8 @@ window.HG_CONFIG = {
   SOURCE_TAG: "orlando-pt",
 
   // 5. The program: where "The Goldy Standard" links from the home page and from the
-  //    "spots full" message. Switch to https://thegoldystandard.com once it's bought.
-  PROGRAM_URL: "https://gold-standard-prelaunch.vercel.app",
+  //    "spots full" message. It lives at hannahgoldy.com/program (see vercel.json).
+  PROGRAM_URL: "/program/",
   //    One line under the program on the home page. Update it on launch day.
   PROGRAM_NOTE: "Opening Soon: The first 100 members get early access pricing.",
 

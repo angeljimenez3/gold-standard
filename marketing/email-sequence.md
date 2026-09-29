@@ -3,7 +3,7 @@
 Five emails that go out automatically after someone signs up on the teaser page.
 Written in Hannah's voice: first person, direct, no filler.
 
-Send from: hello@thegoldystandard.com (display name "Hannah Goldy")
+Send from: thegoldystandard@hannahgoldy.com (display name "Hannah Goldy")
 
 Every factual claim below is taken from the live sales page (`site/index.html`), the
 program data (`tools/pdf/prog-data.mjs`) or Hannah's own words on recorded calls.

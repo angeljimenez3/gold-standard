@@ -99,7 +99,7 @@
   }
 
   function mailtoFallback(payload) {
-    var to = CFG.FALLBACK_EMAIL || 'hello@thegoldystandard.com';
+    var to = CFG.FALLBACK_EMAIL || 'thegoldystandard@hannahgoldy.com';
     var subject = 'Founding member signup — ' + (TRACKS[payload.track] || 'The Goldy Standard');
     var body = 'Name: ' + payload.firstName + '\nEmail: ' + payload.email +
                '\nTrack: ' + (TRACKS[payload.track] || payload.track) + '\n';

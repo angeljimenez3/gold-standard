@@ -9,8 +9,8 @@ const GOLD = '#E8C96A';
 const WHITE = '#FFFFFF';
 
 const targets = [
-  { file: 'qr-thegoldystandard-dark',  url: 'https://thegoldystandard.com',  fg: GOLD,  bg: NAVY  },
-  { file: 'qr-thegoldystandard-light', url: 'https://thegoldystandard.com',  fg: NAVY,  bg: WHITE },
+  { file: 'qr-program-dark',  url: 'https://hannahgoldy.com/program/',  fg: GOLD,  bg: NAVY  },
+  { file: 'qr-program-light', url: 'https://hannahgoldy.com/program/',  fg: NAVY,  bg: WHITE },
   { file: 'qr-hannahgoldy-dark',    url: 'https://hannahgoldy.com/training',    fg: GOLD,  bg: NAVY  },
   { file: 'qr-hannahgoldy-light',   url: 'https://hannahgoldy.com/training',    fg: NAVY,  bg: WHITE },
 ];

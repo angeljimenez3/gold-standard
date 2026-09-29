@@ -11,7 +11,7 @@ window.GS_CONFIG = {
   LEAD_ENDPOINT: "",
 
   // 2. Fallback address used if LEAD_ENDPOINT is empty or the POST fails.
-  FALLBACK_EMAIL: "hello@thegoldystandard.com",
+  FALLBACK_EMAIL: "thegoldystandard@hannahgoldy.com",
 
   // 3. Founding offer shown on the page.
   FOUNDING_SPOTS: 100,

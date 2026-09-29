@@ -3,7 +3,42 @@
   "headers": [
     {
       "source": "/assets/(.*)",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/program",
+      "destination": "/program/",
+      "permanent": true
+    },
+    {
+      "source": "/members",
+      "destination": "/members/",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/program/",
+      "destination": "https://gold-standard-prelaunch.vercel.app/"
+    },
+    {
+      "source": "/program/:path*",
+      "destination": "https://gold-standard-prelaunch.vercel.app/:path*"
+    },
+    {
+      "source": "/members/",
+      "destination": "https://gold-standard-beta.vercel.app/members/"
+    },
+    {
+      "source": "/members/:path*",
+      "destination": "https://gold-standard-beta.vercel.app/members/:path*"
     }
   ]
 }

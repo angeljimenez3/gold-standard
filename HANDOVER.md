@@ -19,8 +19,15 @@ She believed "The Goldie Standard" was available. It is not.
 | **hannahgoldy.com** | **Available: the Orlando training domain** |
 | goldystandardfitness.com | Available |
 
-**Decision (Hannah, Sept 23):** the program is renamed **The Goldy Standard**, at
-`thegoldystandard.com`. Everything has been renamed: both new sites, the sales page, the
+**Where everything lives now (Sept 29):** Hannah bought `hannahgoldy.com` only, and
+everything runs under it. The program page is `hannahgoldy.com/program`, the members
+area is `hannahgoldy.com/members`. `training/vercel.json` proxies those two paths to
+the program and members projects, so visitors never see a vercel.app address. Program
+email is `thegoldystandard@hannahgoldy.com` (an alias on her Google Workspace).
+`thegoldystandard.com` was never bought. If she buys it later, point it at
+`hannahgoldy.com/program` as a redirect.
+
+**Decision (Hannah, Sept 23):** the program is renamed **The Goldy Standard**. Everything has been renamed: both new sites, the sales page, the
 members area, the course PDFs, the story graphics and the emails. The GS logo still
 fits. The one thing that can't change is the audio: the filmed videos say "the gold
 standard" out loud. Hannah knew that when she chose the new name (she raised it herself
@@ -74,9 +81,9 @@ page shows no prices, so anyone can see it.
 Two settings in `training/config.js` drive this:
 
 - `PROGRAM_URL` / `PROGRAM_NOTE`: where "The Goldy Standard" goes and the line under it.
-  Point it at `https://thegoldystandard.com` once bought, and update the note on launch day.
-  Keep owning thegoldystandard.com: it's the brand, and Hannah wants the name for future
-  products (her example: Goldy Standard protein).
+  It is `/program/` (served by the rewrite in `training/vercel.json`). Update the note
+  on launch day. Hannah wants the Goldy Standard name for future products too (her
+  example: Goldy Standard protein), so buying thegoldystandard.com later is still worth it.
 - `ONE_ON_ONE_FULL`: flip to `true` when she can't take more one-on-one clients. Both
   pages then say her spots are full, turn the button into "Join The Waitlist", and point
   people to the program, where members can buy private coaching calls. This is the
@@ -158,9 +165,10 @@ than the editor's.
 
 ## What Angel needs to do
 
-1. Buy `thegoldystandard.com` and `hannahgoldy.com` (and `goldystandard.com` as a redirect).
-2. Create `hello@thegoldystandard.com` and `hannah@hannahgoldy.com`. The members area
-   now uses `hello@thegoldystandard.com` for support. It used to point at
+1. Done: `hannahgoldy.com` is bought and connected (DNS at Wix, SSL issued).
+2. In Hannah's Google Workspace, add `thegoldystandard@hannahgoldy.com` as an alias of
+   her main user (free, no second seat). The program page, the members area support
+   links and the pre-launch emails all use it. The members area used to point at
    `thegoldstandardfitness.com`, a domain nobody owns, so those emails would have bounced.
 3. Prelaunch leads: create a GoHighLevel workflow, copy its inbound webhook URL into
    `prelaunch/config.js` under `LEAD_ENDPOINT`. GHL is needed here because this page
@@ -176,7 +184,8 @@ than the editor's.
      `LEAD_FROM_EMAIL` (defaults to `Hannah Goldy Website <leads@hannahgoldy.com>`).
    - Optional: put her booking calendar link and phone number in `training/config.js`
      to turn on the "Book A Call", "Call Me" and "Text Me" buttons.
-5. Deploy each folder to its own domain.
+5. Deploy each folder with the commands below. Only hannah-goldy-training has the
+   domain; the other two are reached through its `/program` and `/members` rewrites.
 6. Build the email sequence from `marketing/email-sequence.md`.
 7. **Test both forms live from your phone before Hannah posts anything.** On the
    prelaunch page, confirm the contact lands in GHL with the right track (see the note
@@ -193,9 +202,9 @@ How the four Vercel projects are set up (important):
 
 | Project | Folder | How it deploys |
 |---|---|---|
-| gold-standard (sales page + members) | `site/` | Git push to `main`, or `vercel deploy --prod` from the repo root |
-| gold-standard-prelaunch | `prelaunch/` | CLI only, run inside `prelaunch/` |
-| hannah-goldy-training (hannahgoldy.com) | `training/` | CLI only, run inside `training/` |
+| gold-standard (sales page + members, served at hannahgoldy.com/members) | `site/` | Git push to `main`, or `vercel deploy --prod` from the repo root |
+| gold-standard-prelaunch (served at hannahgoldy.com/program) | `prelaunch/` | CLI only, run inside `prelaunch/` |
+| hannah-goldy-training (hannahgoldy.com, owns the rewrites) | `training/` | CLI only, run inside `training/` |
 | hannah-launch-kit | `launch-kit/` | CLI only, run inside `launch-kit/` |
 
 The three CLI-only projects are deliberately **not** connected to GitHub. Vercel
@@ -299,5 +308,4 @@ styles overrode `hidden`, so a dead "Call" button showed with no phone configure
 the form stayed on screen after a successful submit. Both are fixed. The training
 page's booking card was tested in all four setups (no config, phone only, calendar
 only, both). No images missing alt text, no tap target under 44 px, heading order
-correct. The business card QR was decoded from the final exported print file. Both
-domains were re-checked as unregistered on Sept 23.
+correct. The business card QR was decoded from the final exported print file.

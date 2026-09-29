@@ -23,9 +23,9 @@ const CONFIG = {
     "GOLDMUSCLE26":  ["lean-muscle"],
     "GOLDFIGHT26":   ["fighter"],
   },
-  supportEmail: "hello@thegoldystandard.com",
+  supportEmail: "thegoldystandard@hannahgoldy.com",
   /* Group coaching waitlist — swap for a GHL form/calendar link when ready */
-  groupWaitlistUrl: "mailto:hello@thegoldystandard.com?subject=Group%20Coaching%20Waitlist",
+  groupWaitlistUrl: "mailto:thegoldystandard@hannahgoldy.com?subject=Group%20Coaching%20Waitlist",
 };
 
 /* ---- Shared videos (filmed once, used in all 3 tracks) ---- */
@@ -85,7 +85,7 @@ const COURSES = [
     badge: "TRACK 01",
     price: "$297",
     memberPrice: "$178",
-    buyUrl: "https://gold-standard-beta.vercel.app/#pricing",
+    buyUrl: "https://hannahgoldy.com/program/#pricing",
     programPdf: "fat-loss-program.pdf",
     weeks: 12,
     modules: buildTrack({
@@ -113,7 +113,7 @@ const COURSES = [
     badge: "TRACK 02",
     price: "$297",
     memberPrice: "$178",
-    buyUrl: "https://gold-standard-beta.vercel.app/#pricing",
+    buyUrl: "https://hannahgoldy.com/program/#pricing",
     programPdf: "lean-muscle-program.pdf",
     weeks: 12,
     modules: buildTrack({
@@ -140,7 +140,7 @@ const COURSES = [
     badge: "TRACK 03",
     price: "$297",
     memberPrice: "$178",
-    buyUrl: "https://gold-standard-beta.vercel.app/#pricing",
+    buyUrl: "https://hannahgoldy.com/program/#pricing",
     programPdf: "fighter-conditioning-program.pdf",
     weeks: 12,
     modules: buildTrack({
