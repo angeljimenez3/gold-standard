@@ -1,5 +1,5 @@
 /* ============================================================
-   THE GOLDY STANDARD — MEMBER AREA CONTENT MANIFEST
+   THE GOLDY STANDARD: MEMBER AREA CONTENT MANIFEST
    ============================================================
    HOW TO UPLOAD COURSE CONTENT:
    1. Upload the video to Google Drive.
@@ -7,9 +7,9 @@
    3. Copy the FILE ID from the link:
       https://drive.google.com/file/d/FILE_ID_IS_THIS_PART/view
    4. Paste it into the matching driveId: "" below.
-   That's it — the video appears in the player automatically.
+   That's it. The video appears in the player automatically.
 
-   SHARED VIDEOS (S1–S6) are filmed once and shown in all three
+   SHARED VIDEOS (S1 to S6) are filmed once and shown in all three
    tracks. Paste those IDs once in SHARED below and every track
    picks them up.
    ============================================================ */
@@ -24,7 +24,7 @@ const CONFIG = {
     "GOLDFIGHT26":   ["fighter"],
   },
   supportEmail: "thegoldystandard@hannahgoldy.com",
-  /* Group coaching waitlist — swap for a GHL form/calendar link when ready */
+  /* Group coaching waitlist: swap for a GHL form/calendar link when ready */
   groupWaitlistUrl: "mailto:thegoldystandard@hannahgoldy.com?subject=Group%20Coaching%20Waitlist",
 };
 
@@ -55,13 +55,13 @@ function buildTrack(t) {
       { n: 9,  title: SHARED.S4.title, shared: "S4", desc: "How to pick the right weight, when to increase it, and what to substitute when equipment isn't available.", res: [{ label: "Choosing Weight & Substitutions (PDF)", file: "choosing-weight-substitutions.pdf" }] },
       { n: 10, title: SHARED.S5.title, shared: "S5", desc: "The 4-step warm-up and the full cool-down and recovery system. Don't skip these.", res: [{ label: "Warm-Up & Cool-Down One-Sheet (PDF)", file: "warmup-cooldown-system.pdf" }] },
     ]},
-    { module: `Phase 1 — ${t.p1} (Weeks 1–4)`, lessons: [
+    { module: `Phase 1: ${t.p1} (Weeks 1 to 4)`, lessons: [
       { n: 11, title: `Phase 1 Walkthrough: ${t.p1}`, driveId: (t.vids||{})[11] || "", desc: "Everything in your first 4 weeks: the goal, the week structure, and what to focus on." },
     ]},
-    { module: `Phase 2 — ${t.p2} (Weeks 5–8)`, lessons: [
+    { module: `Phase 2: ${t.p2} (Weeks 5 to 8)`, lessons: [
       { n: 12, title: `Phase 2 Walkthrough: ${t.p2}`, driveId: (t.vids||{})[12] || "", desc: "Intensity goes up. Here's exactly what changes and how to handle it." },
     ]},
-    { module: `Phase 3 — ${t.p3} (Weeks 9–12)`, lessons: [
+    { module: `Phase 3: ${t.p3} (Weeks 9 to 12)`, lessons: [
       { n: 13, title: `Phase 3 Walkthrough: ${t.p3}`, driveId: (t.vids||{})[13] || "", desc: "The final push. Peak intensity, and how to finish the program strong." },
     ]},
     { module: "Nutrition", lessons: [
@@ -152,7 +152,7 @@ const COURSES = [
       principles: "Fighter Conditioning",
       principlesDesc: "How fighters actually train: strength, explosive power, conditioning, and core.",
       bigConcept: "The Big Concept: The Energy Systems Behind Conditioning",
-      bigConceptDesc: "Aerobic, anaerobic, and explosive power — and how this program trains all three.",
+      bigConceptDesc: "Aerobic, anaerobic, and explosive power, plus how this program trains all three.",
       rules: "Hannah's 10 Rules for Training Like a Fighter",
       p1: "Conditioning Foundation", p2: "Power and Endurance", p3: "Elite Fighter Conditioning",
       nutrition: "Calories, Macros, and How to Eat for Performance",
@@ -179,6 +179,7 @@ const EXERCISE_LIBRARY = [
   { name: "Jump Squats", cat: "Legs", driveId: "1LZsJ2D3ETxC5MA4QrtDtXnwPux5ZcJur" },
   { name: "Hip Thrust", cat: "Legs", driveId: "1Ol-FEaHYSfh284ftpKOO5hgWZx2CSsSA" },
   { name: "Single Leg Glute Bridges", cat: "Legs", driveId: "1Q9VAEgusSGsLsC6gPKgzqrL16KqytSaO" },
+  { name: "Single Leg Glute Bridges (Weighted)", cat: "Legs", driveId: "1mRPXFaRKe_BlyQ_Xm6Hh98SnjXXfKhpa" },
   { name: "Leg Press", cat: "Legs", driveId: "1bKXSQrv2mxlmisELHpXQLpzCce-8c8II" },
   { name: "Leg Curl", cat: "Legs", driveId: "" },
   { name: "Leg Extension", cat: "Legs", driveId: "1kOxopqIZamWUnDGPFG6BmjrdiX8U5tPH" },
@@ -249,7 +250,7 @@ const EXERCISE_LIBRARY = [
 
 /* ---- Coaching upsells (shown on dashboard + after Phase 3) ---- */
 const COACHING = [
-  { name: "1-on-1 Coaching — 2 Calls", price: "$1,250", desc: "Two private video calls with Hannah. Personalized answers for your exact situation.", cta: "Apply Now" },
-  { name: "1-on-1 Coaching — 4 Calls", price: "$2,500", desc: "Four private calls across your 12 weeks. Check-ins, adjustments, and accountability.", cta: "Apply Now", featured: true },
+  { name: "1-on-1 Coaching (2 Calls)", price: "$1,250", desc: "Two private video calls with Hannah. Personalized answers for your exact situation.", cta: "Apply Now" },
+  { name: "1-on-1 Coaching (4 Calls)", price: "$2,500", desc: "Four private calls across your 12 weeks. Check-ins, adjustments, and accountability.", cta: "Apply Now", featured: true },
   { name: "Group Coaching Intensive", price: "$3,000", desc: "8-week advanced intensive with group calls, all specialties covered.", cta: "Join Waitlist" },
 ];

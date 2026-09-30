@@ -1,4 +1,4 @@
-/* THE GOLD STANDARD — Member Area
+/* THE GOLDY STANDARD: Member Area
    Brand: Deep Navy #1C2B3A · Light Gold #E8C96A · Matte Gold #A8872A
    Off-White #F5F4F0 · Near Black #111827 · Navy Mid #2F4259
    Fonts: Anton (display) · Bebas Neue (labels) · Inter (body) */
@@ -30,7 +30,7 @@ body {
 button { font-family: inherit; cursor: pointer; }
 a { color: inherit; text-decoration: none; }
 
-/* Keyboard focus — visible, on-brand, never removed */
+/* Keyboard focus: visible, on-brand, never removed */
 :focus { outline: none; }
 :focus-visible {
   outline: 2px solid var(--gold);
@@ -39,7 +39,7 @@ a { color: inherit; text-decoration: none; }
 }
 button:active:not(:disabled) { transform: scale(0.98); }
 
-/* Reduced motion — replace movement with instant/fade */
+/* Reduced motion: replace movement with instant/fade */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;

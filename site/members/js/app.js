@@ -1,4 +1,4 @@
-/* THE GOLDY STANDARD — Member Area App
+/* THE GOLDY STANDARD: Member Area App
    Single-page app: login gate → dashboard / course player / exercise library.
    Progress + auth state persist in localStorage. Videos stream from Google Drive
    via the driveId values in content.js. */
@@ -45,7 +45,7 @@
 
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
-  /* Official GS mark — same SVG as the sales page nav */
+  /* Official GS mark: same SVG as the sales page nav */
   const logoSvg = () => `
     <svg viewBox="0 0 100 100" aria-hidden="true">
       <polygon points="50,2 93,20 98,50 93,80 50,98 7,80 2,50 7,20" fill="none" stroke="#E8C96A" stroke-width="5"/>
@@ -106,7 +106,7 @@
         <div class="login-card">
           <div class="logo-mark logo-mark--lg">${logoSvg()}</div>
           <h1>THE GOLDY STANDARD</h1>
-          <p class="sub">Member Area — by Hannah Goldy</p>
+          <p class="sub">Member Area by Hannah Goldy</p>
           <form id="loginForm">
             <div class="field">
               <label>Email</label>
@@ -146,7 +146,7 @@
 
     const firstOwned = COURSES.find((c) => hasAccess(c.id)) || COURSES[0];
     const heroCta = (lastCourse && hasAccess(lastCourse.id))
-      ? `<button class="continue-btn" onclick="location.hash='#/course/${lastCourse.id}/${last.n}'">Continue: ${esc(lastCourse.name)} — Lesson ${last.n} →</button>`
+      ? `<button class="continue-btn" onclick="location.hash='#/course/${lastCourse.id}/${last.n}'">Continue: ${esc(lastCourse.name)}, Lesson ${last.n} →</button>`
       : `<button class="continue-btn" onclick="location.hash='#/course/${firstOwned.id}/1'">Start with Lesson 1 →</button>`;
 
     $app.innerHTML = shell("dash", `
@@ -161,7 +161,7 @@
         <a class="waitlist-banner" href="${esc(CONFIG.groupWaitlistUrl)}" target="_blank" rel="noopener">
           <div class="wb-text">
             <span class="wb-eyebrow">GROUP COACHING · 8-WEEK INTENSIVE</span>
-            <span class="wb-line">Train directly with Hannah — advanced programming, every specialty covered, live group calls.</span>
+            <span class="wb-line">Train directly with Hannah: advanced programming, every specialty covered, live group calls.</span>
           </div>
           <span class="wb-cta">Join the Waitlist →</span>
         </a>
@@ -231,7 +231,7 @@
             <h1 class="page-title">${esc(course.name).toUpperCase()}</h1>
             <p class="page-sub" style="margin:14px auto 0">${esc(course.tagline)}</p>
             <ul class="upgrade-list">
-              <li>17 video lessons with Hannah — full 12-week program in 3 phases</li>
+              <li>17 video lessons with Hannah covering the full 12-week program in 3 phases</li>
               <li>The complete printable program PDF + workout log</li>
               <li>Nutrition lessons, eating guide, and calorie worksheet</li>
               <li>Full access to the ${EXERCISE_LIBRARY.length}-movement Exercise Demo Library</li>
@@ -320,7 +320,7 @@
                 : `<div class="video-placeholder"><div class="inner">
                      <div class="vp-mark">${logoSvg()}</div>
                      <p class="vt">VIDEO COMING SOON</p>
-                     <p class="vd">This lesson is being finalized. Check back shortly — you can keep moving through the written materials in the meantime.</p>
+                     <p class="vd">This lesson is being finalized. Check back shortly. You can keep moving through the written materials in the meantime.</p>
                    </div></div>`}
             </div>
             ${did ? `<div class="vs-bar"><button class="vs-expand" type="button">⤢ Full screen</button></div>` : ""}
@@ -343,8 +343,8 @@
                 </div>
               </div>` : ""}
             <div class="lesson-nav">
-              <button ${prev ? "" : "disabled"} id="prevBtn"><span class="dir">← PREVIOUS</span>${prev ? esc(prev.title) : "—"}</button>
-              <button ${next ? "" : "disabled"} id="nextBtn" style="text-align:right"><span class="dir">NEXT →</span>${next ? esc(next.title) : "—"}</button>
+              <button ${prev ? "" : "disabled"} id="prevBtn"><span class="dir">← PREVIOUS</span>${prev ? esc(prev.title) : ""}</button>
+              <button ${next ? "" : "disabled"} id="nextBtn" style="text-align:right"><span class="dir">NEXT →</span>${next ? esc(next.title) : ""}</button>
             </div>
           </section>
         </div>
@@ -385,7 +385,7 @@
     if (!list.length) {
       return `<div class="lib-empty">
         <p class="t">NO MOVEMENTS MATCH</p>
-        <p class="d">Try a different spelling, or clear the filter — every movement in the programs is in here.</p>
+        <p class="d">Try a different spelling, or clear the filter. Every movement in the programs is in here.</p>
       </div>`;
     }
     return list.map((e) => `
@@ -419,7 +419,7 @@
       <main class="page">
         <p class="eyebrow">FORM REFERENCE</p>
         <h1 class="page-title">EXERCISE DEMO LIBRARY</h1>
-        <p class="page-sub">Every movement in the programs, demonstrated by Hannah — slow reps with cues, then training pace, plus the most common mistakes. Open any demo mid-workout to check your form.</p>
+        <p class="page-sub">Every movement in the programs, demonstrated by Hannah: slow reps with cues, then training pace, plus the most common mistakes. Open any demo mid-workout to check your form.</p>
         <div class="res-row" style="margin-top:14px">
           <a class="res-btn" href="resources/exercise-library-index.pdf" download target="_blank" rel="noopener"><span class="res-ico" aria-hidden="true">⬇</span>Printable Exercise Index (PDF)</a>
         </div>
