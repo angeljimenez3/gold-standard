@@ -5,10 +5,10 @@
 window.GS_CONFIG = {
 
   // 1. WHERE LEADS GO.
-  //    Paste your GoHighLevel inbound webhook URL here.
-  //    GHL: Automation > Workflows > new workflow > Inbound Webhook trigger > copy URL.
+  //    Our own endpoint on hannahgoldy.com. Signups are saved privately and show on
+  //    hannahgoldy.com/admin (founding list count, which program they picked).
   //    Leave empty and the form falls back to an email link so no lead is lost.
-  LEAD_ENDPOINT: "",
+  LEAD_ENDPOINT: "https://hannahgoldy.com/api/signup",
 
   // 2. Fallback address used if LEAD_ENDPOINT is empty or the POST fails.
   FALLBACK_EMAIL: "thegoldystandard@hannahgoldy.com",

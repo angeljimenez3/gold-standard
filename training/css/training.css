@@ -264,3 +264,8 @@
   .hero__in { padding-right: calc(min(38vw, 460px) + 64px + var(--gutter)); }
   .hero__in h1, .hero__in .lede { text-shadow: none; }
 }
+
+/* footer links to the local pages */
+.ftr__links { grid-column: 1 / -1; justify-self: stretch; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 20px; padding-top: 8px; border-top: 1px solid var(--border-light); }
+.ftr__links a { font-size: 14px; color: var(--text-dim); text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; }
+.ftr__links a:hover { color: var(--gold); }

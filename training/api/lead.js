@@ -1,18 +1,24 @@
 /* ============================================================
-   HANNAH GOLDY: enquiry form to Hannah's inbox
+   HANNAH GOLDY: enquiry form to the dashboard and Hannah's inbox
    Vercel serverless function, served at /api/lead.
 
-   Sends each enquiry to Hannah as a formatted email through Resend,
-   with the lead's own address as Reply-To, so she just hits reply.
+   Saves each enquiry to the private Blob store (it shows on /admin), then
+   sends it to Hannah as a formatted email through Resend, with the lead's
+   own address as Reply-To, so she just hits reply. Either one is enough
+   for the visitor to see the thank-you message.
 
    Environment variables (Vercel > Project > Settings > Environment Variables):
-     RESEND_API_KEY   required. From resend.com > API Keys.
-     LEAD_TO_EMAIL    required. Where leads go. Comma-separate for more than one.
+     BLOB_READ_WRITE_TOKEN  set automatically by the connected Blob store.
+     RESEND_API_KEY   optional until Resend is set up. From resend.com > API Keys.
+     LEAD_TO_EMAIL    where emailed leads go. Comma-separate for more than one.
      LEAD_FROM_EMAIL  optional. Defaults to "Hannah Goldy Website <leads@hannahgoldy.com>".
                       The domain must be verified in Resend first.
    ============================================================ */
 
 'use strict';
+
+const store = require('./_lib/store');
+const http = require('./_lib/http');
 
 const GOALS = [
   'One-on-one training in Orlando',
@@ -214,37 +220,42 @@ async function handler(req, res) {
     return res.status(400).json({ ok: false, error: v.error });
   }
 
-  const key = process.env.RESEND_API_KEY;
-  const to = (process.env.LEAD_TO_EMAIL || '').split(',').map(function (s) { return s.trim(); }).filter(Boolean);
-  if (!key || !to.length) {
-    console.error('[lead] RESEND_API_KEY or LEAD_TO_EMAIL is not set');
+  // 1. Save it, so it shows up on the dashboard (hannahgoldy.com/admin).
+  let saved = false;
+  if (store.configured()) {
+    try {
+      await store.writeJson('leads/training/' + store.stamp() + '.json', {
+        name: v.lead.name,
+        email: v.lead.email,
+        phone: v.lead.phone.display,
+        phoneE164: v.lead.phone.e164,
+        goal: v.lead.goal,
+        message: v.lead.message,
+        source: oneLine(body.source, 40),
+        createdAt: new Date().toISOString()
+      });
+      saved = true;
+    } catch (err) {
+      console.error('[lead] Could not save:', err && err.message);
+    }
+  }
+
+  // 2. Email it to Hannah, once Resend is set up.
+  const mail = renderLeadEmail(v.lead);
+  const emailed = await http.sendEmail({
+    to: http.listEnv('LEAD_TO_EMAIL'),
+    from: process.env.LEAD_FROM_EMAIL || DEFAULT_FROM,
+    reply_to: v.lead.email,
+    subject: mail.subject,
+    html: mail.html,
+    text: mail.text
+  });
+
+  if (!saved && !emailed) {
+    console.error('[lead] Neither saved nor emailed. Check the Blob store and Resend settings.');
     return res.status(500).json({ ok: false, error: 'not_configured' });
   }
-
-  const mail = renderLeadEmail(v.lead);
-
-  try {
-    const r = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: { 'Authorization': 'Bearer ' + key, 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        from: process.env.LEAD_FROM_EMAIL || DEFAULT_FROM,
-        to: to,
-        reply_to: v.lead.email,
-        subject: mail.subject,
-        html: mail.html,
-        text: mail.text
-      })
-    });
-    if (!r.ok) {
-      console.error('[lead] Resend rejected the email:', r.status, await r.text());
-      return res.status(502).json({ ok: false, error: 'send_failed' });
-    }
-    return res.status(200).json({ ok: true });
-  } catch (err) {
-    console.error('[lead] Could not reach Resend:', err && err.message);
-    return res.status(502).json({ ok: false, error: 'send_failed' });
-  }
+  return res.status(200).json({ ok: true });
 }
 
 module.exports = handler;

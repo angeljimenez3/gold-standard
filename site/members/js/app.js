@@ -22,7 +22,28 @@
     const k = lessonKey(cid, n);
     if (p[k]) delete p[k]; else p[k] = Date.now();
     saveProgress(p);
+    syncSoon();
   };
+
+  /* ---------- progress for the dashboard (hannahgoldy.com/admin) ----------
+     One snapshot when the member opens the area, one a few seconds after progress changes.
+     Sent as text/plain so the browser skips the CORS preflight. Failures are ignored. */
+  const TRACK_URL = (/(^|\.)hannahgoldy\.com$|^localhost$|^127\.0\.0\.1$/.test(location.hostname) ? "" : "https://hannahgoldy.com") + "/api/track";
+  let syncTimer = null;
+  let openedSent = false;
+  const syncNow = (event) => {
+    const m = auth();
+    if (!m || !m.email) return;
+    let last = null;
+    try { last = JSON.parse(localStorage.getItem(LS_LAST)); } catch { last = null; }
+    try {
+      fetch(TRACK_URL, {
+        method: "POST", keepalive: true, headers: { "Content-Type": "text/plain" },
+        body: JSON.stringify({ email: m.email, tracks: m.tracks || [], progress: progress(), last, event }),
+      }).catch(() => {});
+    } catch { /* offline or blocked: progress still lives in localStorage */ }
+  };
+  const syncSoon = () => { clearTimeout(syncTimer); syncTimer = setTimeout(() => syncNow("progress"), 4000); };
 
   const flatLessons = (course) => course.modules.flatMap((m) => m.lessons);
   const courseById = (id) => COURSES.find((c) => c.id === id);
@@ -35,8 +56,13 @@
     const m = auth(); if (!m) return;
     m.tracks = [...new Set([...(m.tracks || []), ...tracks])];
     localStorage.setItem(LS_AUTH, JSON.stringify(m));
+    syncSoon();
   };
   const driveIdOf = (lesson) => (lesson.shared ? SHARED[lesson.shared].driveId : lesson.driveId) || "";
+  /* Library demos play from Drive; the two moves that were never filmed use a YouTube demo instead. */
+  const demoSrc = (ex) => ex.driveId
+    ? `https://drive.google.com/file/d/${encodeURIComponent(ex.driveId)}/preview`
+    : ex.youtubeId ? `https://www.youtube-nocookie.com/embed/${encodeURIComponent(ex.youtubeId)}?rel=0&playsinline=1` : "";
   const courseProgress = (course) => {
     const all = flatLessons(course);
     const done = all.filter((l) => isDone(course.id, l.n)).length;
@@ -56,6 +82,7 @@
   /* ---------- router ---------- */
   function route() {
     if (!auth()) { renderLogin(); return; }
+    if (!openedSent) { openedSent = true; syncNow("open"); }
     const h = location.hash || "#/dashboard";
     const parts = h.replace(/^#\//, "").split("/");
     if (parts[0] === "course" && parts[1]) {
@@ -96,7 +123,7 @@
 
   function wireChrome() {
     const btn = document.getElementById("logoutBtn");
-    if (btn) btn.onclick = () => { localStorage.removeItem(LS_AUTH); location.hash = ""; route(); };
+    if (btn) btn.onclick = () => { localStorage.removeItem(LS_AUTH); openedSent = false; location.hash = ""; route(); };
   }
 
   /* ---------- login ---------- */
@@ -389,10 +416,10 @@
       </div>`;
     }
     return list.map((e) => `
-      <div class="lib-card ${e.driveId ? "has-video" : ""}" data-i="${EXERCISE_LIBRARY.indexOf(e)}" role="button" tabindex="0" aria-label="Open demo: ${esc(e.name)}">
+      <div class="lib-card ${demoSrc(e) ? "has-video" : ""}" data-i="${EXERCISE_LIBRARY.indexOf(e)}" role="button" tabindex="0" aria-label="Open demo: ${esc(e.name)}">
         <span class="cat-tag">${esc(e.cat)}</span>
         <span class="nm">${esc(e.name)}</span>
-        <span class="status"><span class="s-dot"></span>${e.driveId ? "Watch demo" : "Coming soon"}</span>
+        <span class="status"><span class="s-dot"></span>${demoSrc(e) ? "Watch demo" : "Coming soon"}</span>
       </div>`).join("");
   }
 
@@ -459,13 +486,13 @@
           <div class="modal-head">
             <div><p class="t">${esc(ex.name).toUpperCase()}</p><p class="c">${esc(ex.cat)}</p></div>
             <div class="modal-actions">
-              ${ex.driveId ? `<button class="vs-expand vs-expand--sm" type="button">⤢ Full screen</button>` : ""}
+              ${demoSrc(ex) ? `<button class="vs-expand vs-expand--sm" type="button">⤢ Full screen</button>` : ""}
               <button class="modal-close" id="mClose" aria-label="Close demo">✕</button>
             </div>
           </div>
           <div class="video-shell">
-            ${ex.driveId
-              ? `<iframe src="https://drive.google.com/file/d/${esc(ex.driveId)}/preview" allow="autoplay; fullscreen" allowfullscreen></iframe>
+            ${demoSrc(ex)
+              ? `<iframe src="${esc(demoSrc(ex))}" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen></iframe>
                  <button class="vs-close" type="button" aria-label="Exit full screen">✕</button>
                    <p class="vs-rotate">Turn your phone sideways for a bigger picture</p>`
               : `<div class="video-placeholder"><div class="inner">

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dashboard | Hannah Goldy</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#1C2B3A">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/brand.css">
+<link rel="stylesheet" href="/admin/admin.css">
+</head>
+<body class="adm">
+
+<header class="adm-hdr">
+  <div class="adm-wrap adm-hdr__in">
+    <span class="adm-mark">
+      <svg width="30" height="30" viewBox="0 0 100 100" aria-hidden="true">
+        <polygon points="50,2 93,20 98,50 93,80 50,98 7,80 2,50 7,20" fill="none" stroke="#E8C96A" stroke-width="5"/>
+        <text x="50" y="63" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="42" fill="#E8C96A" letter-spacing="2">GS</text>
+      </svg>
+      Dashboard
+    </span>
+    <div class="adm-hdr__actions" data-when="in" hidden>
+      <span class="adm-updated" id="updated"></span>
+      <button class="adm-btn adm-btn--ghost" id="refresh" type="button">Refresh</button>
+      <button class="adm-btn adm-btn--ghost" id="logout" type="button">Log out</button>
+    </div>
+  </div>
+</header>
+
+<!-- Login -->
+<main class="adm-login" data-when="out" hidden>
+  <form class="adm-card adm-login__card" id="loginForm">
+    <h1 class="adm-h1">Dashboard</h1>
+    <p class="adm-muted">Leads, the founding list and members, in one place.</p>
+    <label class="adm-label" for="pw">Password</label>
+    <input class="adm-input" id="pw" type="password" autocomplete="current-password" required>
+    <button class="adm-btn adm-btn--gold" type="submit" id="loginBtn">Log in</button>
+    <p class="adm-err" id="loginErr" hidden></p>
+  </form>
+</main>
+
+<!-- Dashboard -->
+<main class="adm-wrap adm-main" data-when="in" hidden>
+
+  <p class="adm-err" id="loadErr" hidden></p>
+
+  <section class="adm-tiles" aria-label="Summary">
+    <div class="adm-card adm-tile">
+      <span class="adm-tile__k">Training leads</span>
+      <span class="adm-tile__v" id="tLeads">0</span>
+      <span class="adm-tile__s" id="tLeadsSub"></span>
+    </div>
+    <div class="adm-card adm-tile">
+      <span class="adm-tile__k">Founding list</span>
+      <span class="adm-tile__v"><span id="tFound">0</span><small> / 100</small></span>
+      <div class="adm-meter" role="img" id="tFoundMeterWrap"><span id="tFoundMeter"></span></div>
+      <span class="adm-tile__s" id="tFoundSub"></span>
+    </div>
+    <div class="adm-card adm-tile">
+      <span class="adm-tile__k">Members</span>
+      <span class="adm-tile__v" id="tMembers">0</span>
+      <span class="adm-tile__s" id="tMembersSub"></span>
+    </div>
+    <div class="adm-card adm-tile">
+      <span class="adm-tile__k">Lessons completed</span>
+      <span class="adm-tile__v" id="tLessons">0</span>
+      <span class="adm-tile__s" id="tLessonsSub"></span>
+    </div>
+  </section>
+
+  <nav class="adm-nav" aria-label="Sections">
+    <a href="#leads">Training leads</a>
+    <a href="#founding">Founding list</a>
+    <a href="#members">Members</a>
+  </nav>
+
+  <div class="adm-grid2">
+    <section class="adm-card adm-sec" aria-labelledby="picksH">
+      <h2 class="adm-h2" id="picksH">Founding list: which program they want</h2>
+      <div id="picks" class="adm-bars"></div>
+    </section>
+    <section class="adm-card adm-sec" aria-labelledby="courseH">
+      <h2 class="adm-h2" id="courseH">Course progress by track</h2>
+      <div class="adm-scroll">
+        <table class="adm-table">
+          <thead><tr><th>Track</th><th class="num">Members</th><th class="num">Started</th><th class="num">Finished</th><th>Average done</th></tr></thead>
+          <tbody id="courseRows"></tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <section class="adm-card adm-sec" id="leads" aria-labelledby="leadsH">
+    <div class="adm-sec__head">
+      <h2 class="adm-h2" id="leadsH">Training leads</h2>
+      <button class="adm-btn adm-btn--ghost" type="button" data-csv="leads">Download CSV</button>
+    </div>
+    <div class="adm-scroll">
+      <table class="adm-table">
+        <thead><tr><th>Date</th><th>Name</th><th>Wants</th><th>Phone</th><th>Email</th><th>Their note</th></tr></thead>
+        <tbody id="leadRows"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="adm-card adm-sec" id="founding" aria-labelledby="foundH">
+    <div class="adm-sec__head">
+      <h2 class="adm-h2" id="foundH">Founding list</h2>
+      <button class="adm-btn adm-btn--ghost" type="button" data-csv="signups">Download CSV</button>
+    </div>
+    <div class="adm-scroll">
+      <table class="adm-table">
+        <thead><tr><th>Date</th><th>First name</th><th>Email</th><th>Program</th></tr></thead>
+        <tbody id="signupRows"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="adm-card adm-sec" id="members" aria-labelledby="memH">
+    <div class="adm-sec__head">
+      <h2 class="adm-h2" id="memH">Members</h2>
+      <button class="adm-btn adm-btn--ghost" type="button" data-csv="members">Download CSV</button>
+    </div>
+    <p class="adm-muted adm-note">A member shows up here the first time they open the members area after logging in.</p>
+    <div class="adm-scroll">
+      <table class="adm-table">
+        <thead><tr><th>Email</th><th>Tracks</th><th>Progress</th><th class="num">Visits</th><th>Last active</th><th>Joined</th></tr></thead>
+        <tbody id="memberRows"></tbody>
+      </table>
+    </div>
+  </section>
+
+</main>
+
+<script src="/members/js/content.js?v=16"></script>
+<script src="/admin/admin.js"></script>
+</body>
+</html>

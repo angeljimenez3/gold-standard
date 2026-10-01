@@ -1,5 +1,5 @@
 /* ============================================================
-   THE GOLDY STANDARD — Pre-launch teaser
+   THE GOLDY STANDARD: Pre-launch teaser
    Poll -> email capture -> confirmation.
    A lead is never silently dropped: if the endpoint is missing
    or fails, we hand the visitor a prefilled email fallback.
@@ -100,7 +100,7 @@
 
   function mailtoFallback(payload) {
     var to = CFG.FALLBACK_EMAIL || 'thegoldystandard@hannahgoldy.com';
-    var subject = 'Founding member signup — ' + (TRACKS[payload.track] || 'The Goldy Standard');
+    var subject = 'Founding member signup: ' + (TRACKS[payload.track] || 'The Goldy Standard');
     var body = 'Name: ' + payload.firstName + '\nEmail: ' + payload.email +
                '\nTrack: ' + (TRACKS[payload.track] || payload.track) + '\n';
     return 'mailto:' + to + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);

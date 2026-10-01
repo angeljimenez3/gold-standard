@@ -9,3 +9,7 @@ node_modules/
 # and the script that generates them. Files are kept locally only.
 deliverables/
 tools/pdf/milestone.mjs
+
+# Local test settings for tools/dev/hg-server.mjs
+tools/dev/.env.dev
+tools/dev/ADMIN-PASSWORD.txt
