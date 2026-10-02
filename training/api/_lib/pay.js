@@ -27,6 +27,14 @@ function stripe() {
   if (!client) { client = require('stripe')(key); }
   return client;
 }
+// Which kind of Stripe key is set (prefix only, never the key), for setup checks.
+function keyKind() {
+  const k = process.env.STRIPE_SECRET_KEY || '';
+  if (!k) { return 'missing'; }
+  const m = k.match(/^(sk|rk|pk)_(live|test)_/);
+  if (m) { return m[1] + '_' + m[2]; }
+  return /^\s|\s$/.test(k) ? 'has_spaces' : /^["']/.test(k) ? 'has_quotes' : 'unrecognized';
+}
 const testMode = () => /^(sk|rk)_test_/.test(process.env.STRIPE_SECRET_KEY || '');
 
 /* ---------- member access ---------- */
@@ -84,7 +92,8 @@ async function status() {
     testMode: testMode(),
     prices: { founding: PRICE.founding / 100, full: PRICE.full / 100, addon: PRICE.addon / 100 },
     foundingLimit: FOUNDING_LIMIT,
-    foundingLeft: Math.max(0, FOUNDING_LIMIT - sold)
+    foundingLeft: Math.max(0, FOUNDING_LIMIT - sold),
+    keyKind: keyKind()
   };
 }
 
