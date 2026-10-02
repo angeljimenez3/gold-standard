@@ -10,6 +10,9 @@
      leads/training/<time>_<rand>.json   one file per training enquiry
      signups/<emailhash>.json            one file per founding-list email
      members/<emailhash>.json            latest progress snapshot per member
+     access/<emailhash>.json             tracks a buyer owns (their code is derived, never stored)
+     sales/<founding|full|addon>/<id>.json  one per paid program purchase
+     payments/<stripe id>.json           pay links and invoices Hannah sends
    ============================================================ */
 
 'use strict';
@@ -60,7 +63,8 @@ async function writeJson(pathname, data) {
 async function listPaths(prefix) {
   if (LOCAL_DIR) {
     const dir = path.join(LOCAL_DIR, prefix);
-    return fs.existsSync(dir) ? fs.readdirSync(dir).filter((n) => n.endsWith('.json')).map((n) => prefix + n) : [];
+    if (!fs.existsSync(dir)) { return []; }
+    return fs.readdirSync(dir, { recursive: true }).map(String).filter((n) => n.endsWith('.json')).map((n) => prefix + n.split(path.sep).join('/'));
   }
   const out = [];
   let cursor;
@@ -87,4 +91,4 @@ function configured() {
   return Boolean(LOCAL_DIR || process.env.BLOB_READ_WRITE_TOKEN);
 }
 
-module.exports = { emailKey, stamp, readJson, writeJson, readAll, configured };
+module.exports = { emailKey, stamp, readJson, writeJson, readAll, listPaths, configured };

@@ -13,3 +13,4 @@ tools/pdf/milestone.mjs
 # Local test settings for tools/dev/hg-server.mjs
 tools/dev/.env.dev
 tools/dev/ADMIN-PASSWORD.txt
+tools/dev/MEMBER-MASTER-CODE.txt

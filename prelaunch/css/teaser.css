@@ -295,3 +295,14 @@
   .hero__in h1, .hero__in .lede { text-shadow: none; }
   .hero__cue { display: none; }
 }
+
+/* ---------- Launch: buy box replaces the email form (SALES_OPEN) ---------- */
+.buy { display: none; text-align: center; }
+.sales-open .buy { display: block; }
+.sales-open #lead-form { display: none; }
+.buy__price { font-family: var(--font-accent); font-size: 56px; line-height: 1; margin-bottom: 6px; }
+.buy__was { font-size: 28px; color: var(--text-dim); text-decoration: line-through; margin-left: 8px; }
+.buy__was[hidden] { display: none; }
+.buy__note { margin-bottom: 18px; }
+.buy .form__submit { width: 100%; }
+.buy .form__fine { margin-top: 12px; }

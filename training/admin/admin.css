@@ -95,3 +95,25 @@
 .adm-tag { display: inline-block; font-size: 12px; padding: 2px 8px; border-radius: 3px; border: 1px solid var(--border-gold); color: var(--text-light); margin: 0 4px 4px 0; white-space: nowrap; }
 
 @media (prefers-reduced-motion: reduce) { .adm-meter span { transition: none; } }
+
+/* payments */
+.adm-badge { font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--navy); background: #F2B8A8; padding: 4px 8px; border-radius: 3px; }
+.adm-payform { display: grid; gap: 12px; grid-template-columns: 1fr; margin-bottom: 16px; }
+@media (min-width: 720px) { .adm-payform { grid-template-columns: 1fr 1fr; } .adm-field--wide { grid-column: 1 / -1; } }
+.adm-field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.adm-field .adm-label { margin-top: 0; }
+.adm-opt { text-transform: none; letter-spacing: 0; font-weight: 400; }
+.adm-payform__actions { display: flex; gap: 10px; flex-wrap: wrap; align-items: end; grid-column: 1 / -1; }
+.adm-payform__actions .adm-btn--gold { width: auto; min-height: 44px; font-size: 16px; }
+.adm-payform__actions .adm-btn--ghost { min-height: 44px; }
+.adm-payout { border: 1px solid var(--gold); border-radius: 6px; padding: 14px; margin-bottom: 16px; background: rgba(232,201,106,0.06); }
+.adm-payout__k { font-size: 14px; margin-bottom: 8px; color: var(--text-light); }
+.adm-payout__row { display: flex; gap: 8px; flex-wrap: wrap; }
+.adm-payout__row .adm-input { flex: 1 1 240px; min-height: 44px; font-size: 14px; }
+.adm-btn--sm { min-height: 44px; width: auto; font-size: 15px; }
+.adm-btn--link { display: inline-flex; align-items: center; text-decoration: none; }
+.adm-status { font-size: 12px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; padding: 2px 8px; border-radius: 3px; white-space: nowrap; }
+.adm-status--paid { background: rgba(140, 214, 160, 0.16); color: #A8E3B8; }
+.adm-status--open { background: rgba(255,255,255,0.08); color: var(--text-dim); }
+.adm-code { font-family: var(--font-accent); font-size: 17px; letter-spacing: 0.08em; color: var(--white); user-select: all; white-space: nowrap; }
+.adm-copy { background: none; border: 0; color: var(--gold); cursor: pointer; font: inherit; font-size: 13px; padding: 4px 0; min-height: 32px; }

@@ -189,6 +189,61 @@
     });
   }
 
+  /* ---------- Launch: pay for the picked track through Stripe ---------- */
+  var SALES = CFG.SALES_OPEN === true || /[?&]sales=preview\b/.test(location.search);
+  var CHECKOUT = CFG.CHECKOUT_ENDPOINT || 'https://hannahgoldy.com/api/checkout';
+  if (SALES) {
+    document.documentElement.classList.add('sales-open');
+    $$('[data-cta-label]').forEach(function (el) { el.textContent = 'Get The Program'; });
+    var sub = $('[data-presale-sub]');
+    if (sub) { sub.innerHTML = 'You picked <strong class="gold" data-chosen>' + (TRACKS[chosen] || 'your track') + '</strong>. Twelve weeks, built to follow on your own schedule.'; }
+
+    var setPrice = function (st) {
+      var founding = st.foundingLeft > 0;
+      $$('[data-buy-price]').forEach(function (el) { el.textContent = founding ? st.prices.founding : st.prices.full; });
+      var was = $('[data-buy-was]');
+      if (was) { was.hidden = !founding; was.textContent = '$' + st.prices.full; }
+      var note = $('[data-buy-note]');
+      if (note) {
+        note.textContent = founding
+          ? 'Founding price: ' + st.foundingLeft + ' of ' + st.foundingLimit + ' spots left.'
+          : 'One payment, lifetime access to your track.';
+      }
+    };
+    fetch(CHECKOUT, { cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (st) {
+      if (st && st.prices) { setPrice(st); }
+    }).catch(function () {});
+
+    var buyBtn = $('#buy-btn'), buyErr = $('#buy-err');
+    if (buyBtn) {
+      buyBtn.addEventListener('click', function () {
+        var track = chosen || (function () { try { return localStorage.getItem('gs_track'); } catch (e) { return null; } })();
+        if (!track) { show(1); return; }
+        buyBtn.disabled = true;
+        if (buyErr) { buyErr.hidden = true; }
+        fetch(CHECKOUT, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ track: track, kind: 'track' }) })
+          .then(function (r) { return r.json(); })
+          .then(function (r) {
+            if (r && r.ok && r.url) { window.location.href = r.url; return; }
+            throw new Error((r && r.error) || 'checkout');
+          })
+          .catch(function (e) {
+            buyBtn.disabled = false;
+            if (buyErr) {
+              buyErr.textContent = e.message === 'payments_not_configured'
+                ? 'Checkout opens soon. Follow @hannahgoldy for the launch.'
+                : 'Checkout did not open. Please try again in a minute.';
+              buyErr.hidden = false;
+            }
+          });
+      });
+    }
+    if (/[?&]checkout=canceled\b/.test(location.search) && buyErr) {
+      buyErr.textContent = 'No charge was made. Pick your track whenever you are ready.';
+      buyErr.hidden = false;
+    }
+  }
+
   /* ---------- Optional countdown ---------- */
   if (CFG.LAUNCH_DATE) {
     var target = new Date(CFG.LAUNCH_DATE).getTime();

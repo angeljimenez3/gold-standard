@@ -48,6 +48,7 @@ async function runApi(name, req, res, raw) {
   const handler = require(file);
   const ct = String(req.headers['content-type'] || '');
   req.body = ct.includes('application/json') ? (raw ? JSON.parse(raw) : {}) : raw;
+  req.query = Object.fromEntries(new URL(req.url, 'http://localhost').searchParams);
   res.status = (c) => { res.statusCode = c; return res; };
   res.json = (o) => { res.setHeader('Content-Type', 'application/json'); res.end(JSON.stringify(o)); return res; };
   res.send = (b) => { res.end(b); return res; };

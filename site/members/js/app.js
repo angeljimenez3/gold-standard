@@ -28,7 +28,11 @@
   /* ---------- progress for the dashboard (hannahgoldy.com/admin) ----------
      One snapshot when the member opens the area, one a few seconds after progress changes.
      Sent as text/plain so the browser skips the CORS preflight. Failures are ignored. */
-  const TRACK_URL = (/(^|\.)hannahgoldy\.com$|^localhost$|^127\.0\.0\.1$/.test(location.hostname) ? "" : "https://hannahgoldy.com") + "/api/track";
+  const API = /(^|\.)hannahgoldy\.com$|^localhost$|^127\.0\.0\.1$/.test(location.hostname) ? "" : "https://hannahgoldy.com";
+  const TRACK_URL = API + "/api/track";
+  const postJson = (path, body) => fetch(API + path, {
+    method: "POST", headers: { "Content-Type": "text/plain" }, body: JSON.stringify(body),
+  }).then((r) => r.json().catch(() => ({ ok: false })).then((j) => Object.assign({ status: r.status }, j)));
   let syncTimer = null;
   let openedSent = false;
   const syncNow = (event) => {
@@ -51,7 +55,6 @@
   /* ---------- per-track entitlements ---------- */
   const unlockedTracks = () => (auth() && auth().tracks) || [];
   const hasAccess = (cid) => unlockedTracks().includes(cid);
-  const codeToTracks = (code) => CONFIG.accessCodes[code.trim().toUpperCase()] || CONFIG.accessCodes[code.trim()] || null;
   const addTracks = (tracks) => {
     const m = auth(); if (!m) return;
     m.tracks = [...new Set([...(m.tracks || []), ...tracks])];
@@ -151,16 +154,24 @@
       </div>`;
     document.getElementById("loginForm").onsubmit = (e) => {
       e.preventDefault();
-      const email = document.getElementById("lEmail").value.trim();
-      const code = document.getElementById("lCode").value.trim();
-      const tracks = codeToTracks(code);
-      if (tracks) {
-        localStorage.setItem(LS_AUTH, JSON.stringify({ email, tracks, at: Date.now() }));
-        location.hash = "#/dashboard";
-        route();
-      } else {
-        document.getElementById("lErr").style.display = "block";
-      }
+      const email = document.getElementById("lEmail").value.trim().toLowerCase();
+      const code = document.getElementById("lCode").value.trim().toUpperCase();
+      const btn = e.target.querySelector(".login-btn");
+      const err = document.getElementById("lErr");
+      btn.disabled = true; err.style.display = "none";
+      postJson("/api/member-login", { email, code })
+        .then((r) => {
+          if (r.ok) {
+            localStorage.setItem(LS_AUTH, JSON.stringify({ email, code, tracks: r.tracks, at: Date.now() }));
+            location.hash = "#/dashboard";
+            route();
+          } else {
+            err.textContent = r.status === 401 ? "That email and access code don't match. Check your welcome email." : "Something went wrong. Try again in a minute.";
+            err.style.display = "block";
+          }
+        })
+        .catch(() => { err.textContent = "Could not reach the server. Check your connection."; err.style.display = "block"; })
+        .finally(() => { btn.disabled = false; });
     };
   }
 
@@ -268,27 +279,43 @@
               <span class="now">${esc(course.memberPrice)}</span>
               <span class="deal-tag">MEMBERS SAVE 40%</span>
             </div>
-            <a class="continue-btn" href="${esc(course.buyUrl)}" target="_blank" rel="noopener">Unlock ${esc(course.name)} →</a>
+            <button class="continue-btn" type="button" id="buyBtn">Add ${esc(course.name)} for ${esc(course.memberPrice)} →</button>
+            <p class="login-err" id="buyErr"></p>
             <div class="code-redeem">
-              <p class="code-label">ALREADY PURCHASED? ENTER YOUR ACCESS CODE</p>
+              <p class="code-label">ALREADY BOUGHT IT?</p>
               <div class="code-row">
-                <input class="search-box" id="upCode" placeholder="Access code" aria-label="Access code" style="width:220px;margin:0" />
-                <button class="coach-btn" id="upBtn">Unlock</button>
+                <button class="coach-btn" type="button" id="refreshBtn">Refresh my access</button>
               </div>
-              <p class="login-err" id="upErr">That code doesn't unlock this track. Check your purchase email.</p>
+              <p class="login-err" id="upErr">It's not showing as bought yet. Give it a minute, or email us below.</p>
             </div>
           </div>
         </div>
       </main>`);
     wireChrome();
-    document.getElementById("upBtn").onclick = () => {
-      const tracks = codeToTracks(document.getElementById("upCode").value);
-      if (tracks && tracks.includes(course.id)) {
-        addTracks(tracks);
-        renderCourse(course, null);
-      } else {
-        document.getElementById("upErr").style.display = "block";
+    const m = auth();
+    const buyErr = document.getElementById("buyErr");
+    document.getElementById("buyBtn").onclick = (e) => {
+      if (!m.code) {
+        buyErr.textContent = "Log out and back in with your access code, then you can add this track.";
+        buyErr.style.display = "block"; return;
       }
+      e.target.disabled = true; buyErr.style.display = "none";
+      postJson("/api/checkout", { track: course.id, kind: "addon", email: m.email, code: m.code })
+        .then((r) => {
+          if (r.ok && r.url) { location.href = r.url; return; }
+          buyErr.textContent = r.error === "already_owned" ? "You already have this track. Tap Refresh my access."
+            : r.error === "payments_not_configured" ? "Checkout isn't open yet. Check back soon."
+            : "Checkout didn't open. Try again in a minute.";
+          buyErr.style.display = "block"; e.target.disabled = false;
+        })
+        .catch(() => { buyErr.textContent = "Could not reach checkout. Check your connection."; buyErr.style.display = "block"; e.target.disabled = false; });
+    };
+    document.getElementById("refreshBtn").onclick = () => {
+      if (!m.code) { document.getElementById("upErr").style.display = "block"; return; }
+      postJson("/api/member-login", { email: m.email, code: m.code }).then((r) => {
+        if (r.ok && r.tracks.includes(course.id)) { addTracks(r.tracks); renderCourse(course, null); }
+        else { document.getElementById("upErr").style.display = "block"; }
+      }).catch(() => { document.getElementById("upErr").style.display = "block"; });
     };
   }
 
@@ -555,6 +582,58 @@
   // Leaving the page or closing the demo while in theater mode must not leave scrolling locked
   window.addEventListener("hashchange", exitTheater);
 
+  /* ---------- coming back from Stripe ---------- */
+  function welcome(code, trackName) {
+    const veil = document.createElement("div");
+    veil.className = "modal-veil";
+    veil.innerHTML = `
+      <div class="modal welcome" role="dialog" aria-modal="true" aria-labelledby="wT">
+        <div class="welcome-body">
+          <p class="eyebrow">PAYMENT CONFIRMED</p>
+          <h2 id="wT">YOU'RE IN.</h2>
+          <p>${esc(trackName)} is unlocked. This is your personal access code:</p>
+          <p class="welcome-code">${esc(code)}</p>
+          <p class="welcome-note">Save it (a screenshot works). You'll use it with your email to log in on any other device.</p>
+          <div class="welcome-actions">
+            <button class="coach-btn" type="button" id="wCopy">Copy code</button>
+            <button class="continue-btn" type="button" id="wGo">Start training →</button>
+          </div>
+        </div>
+      </div>`;
+    document.body.appendChild(veil);
+    veil.querySelector("#wGo").onclick = () => veil.remove();
+    veil.querySelector("#wCopy").onclick = (e) => {
+      try { navigator.clipboard.writeText(code).then(() => { e.target.textContent = "Copied"; }); } catch (x) { /* select it by hand */ }
+    };
+    veil.querySelector("#wGo").focus();
+  }
+
+  function boot() {
+    const paid = new URLSearchParams(location.search).get("paid");
+    if (!paid) { route(); return; }
+    history.replaceState(null, "", location.pathname + location.hash);
+    const card = (title, text) => `<div class="login-wrap"><div class="login-card"><div class="logo-mark logo-mark--lg">${logoSvg()}</div><h1>${title}</h1><p class="sub">${text}</p></div></div>`;
+    $app.innerHTML = card("ONE MOMENT", "Confirming your payment...");
+    const tryConfirm = (n) => fetch(API + "/api/checkout-confirm?session_id=" + encodeURIComponent(paid))
+      .then((r) => r.json())
+      .then((r) => {
+        if (r.ok) {
+          localStorage.setItem(LS_AUTH, JSON.stringify({ email: r.email, code: r.code, tracks: r.tracks, at: Date.now() }));
+          openedSent = false;
+          const c = courseById(r.track);
+          location.hash = "#/course/" + r.track;
+          route();
+          welcome(r.code, c ? c.name : "Your program");
+        } else if (r.error === "not_paid_yet" && n < 5) {
+          setTimeout(() => tryConfirm(n + 1), 2000); // bank payments can take a moment
+        } else { throw new Error(r.error || "confirm_failed"); }
+      })
+      .catch(() => {
+        $app.innerHTML = card("ALMOST THERE", `We couldn't confirm your payment automatically. If you were charged, email <a href="mailto:${esc(CONFIG.supportEmail)}">${esc(CONFIG.supportEmail)}</a> and we'll send your access code right away.`);
+      });
+    tryConfirm(0);
+  }
+
   /* ---------- boot ---------- */
-  route();
+  boot();
 })();

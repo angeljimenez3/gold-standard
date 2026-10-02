@@ -15,14 +15,8 @@
    ============================================================ */
 
 const CONFIG = {
-  /* Access codes → which tracks they unlock. Change ALL codes before launch.
-     Put the matching code in each product's purchase confirmation email. */
-  accessCodes: {
-    "GOLD2026":      ["fat-loss", "lean-muscle", "fighter"], // all-access (legacy/beta)
-    "GOLDFAT26":     ["fat-loss"],
-    "GOLDMUSCLE26":  ["lean-muscle"],
-    "GOLDFIGHT26":   ["fighter"],
-  },
+  /* Access codes are checked on the server (hannahgoldy.com/api/member-login). Each buyer
+     gets a personal code after checkout; none are listed in this public file. */
   supportEmail: "thegoldystandard@hannahgoldy.com",
   /* Group coaching waitlist: swap for a GHL form/calendar link when ready */
   groupWaitlistUrl: "mailto:thegoldystandard@hannahgoldy.com?subject=Group%20Coaching%20Waitlist",

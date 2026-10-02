@@ -52,6 +52,11 @@
   }
   function pct(n, of) { return of ? Math.round((n / of) * 100) : 0; }
   function meter(p) { return '<div class="adm-meter"><span style="width:' + Math.max(0, Math.min(100, p)) + '%"></span></div>'; }
+  function money(cents) {
+    var d = (Number(cents) || 0) / 100;
+    return '$' + d.toLocaleString('en-US', { minimumFractionDigits: d % 1 ? 2 : 0, maximumFractionDigits: 2 });
+  }
+  var TIER = { founding: 'Founding', full: 'Full price', addon: 'Member add-on' };
   function empty(cols, text) { return '<tr class="adm-empty"><td colspan="' + cols + '">' + esc(text) + '</td></tr>'; }
 
   /* ---------- views ---------- */
@@ -71,10 +76,47 @@
     $('#tFoundMeterWrap').setAttribute('aria-label', f + ' of ' + FOUNDING_SPOTS + ' founding spots taken');
     $('#tFoundSub').textContent = f >= FOUNDING_SPOTS ? 'All founding spots are taken' : (FOUNDING_SPOTS - f) + ' founding spots left';
     $('#tMembers').textContent = members.length;
-    $('#tMembersSub').textContent = members.filter(function (m) { return recent(m.lastSeen); }).length + ' active in the last 7 days';
     var lessonsDone = members.reduce(function (n, m) { return n + Object.keys(m.progress || {}).length; }, 0);
-    $('#tLessons').textContent = lessonsDone;
-    $('#tLessonsSub').textContent = members.length ? 'About ' + Math.round(lessonsDone / members.length) + ' per member' : 'Across all members';
+    $('#tMembersSub').textContent = members.filter(function (m) { return recent(m.lastSeen); }).length + ' active this week, ' + lessonsDone + (lessonsDone === 1 ? ' lesson done' : ' lessons done');
+
+    var sales = data.sales || [], payments = data.payments || [], st = data.stripe || {};
+    $('#tSales').textContent = money(sales.reduce(function (n, s) { return n + (s.amount || 0); }, 0));
+    $('#tSalesSub').textContent = sales.length + (sales.length === 1 ? ' sale' : ' sales') +
+      (st.foundingLimit ? ', ' + st.foundingLeft + ' of ' + st.foundingLimit + ' founding spots left' : '');
+    // Stripe setup problems, in the order they need fixing
+    var setup = st.setup || {}, warn = '';
+    if (!st.connected || setup.key === 'missing') { warn = 'Stripe not connected'; }
+    else if (setup.key === 'publishable') { warn = 'Stripe: use the secret key (sk_), not the publishable one'; }
+    else if (setup.key === 'error') { warn = 'Stripe key problem: ' + (setup.message || 'check the key'); }
+    else if (setup.webhook === 'missing') { warn = 'Stripe webhook not set up'; }
+    else if (setup.webhook === 'disabled') { warn = 'Stripe webhook is disabled'; }
+    else if (setup.webhook === 'missing_events') { warn = 'Webhook missing: ' + (setup.missingEvents || []).join(', '); }
+    else if (st.testMode) { warn = 'Stripe test mode'; }
+    var badge = $('#stripeBadge');
+    badge.hidden = !warn;
+    badge.textContent = warn;
+
+    // payment requests (pay links and invoices)
+    $('#payRows').innerHTML = payments.length ? payments.map(function (p) {
+      var paid = p.status === 'paid';
+      return '<tr><td class="nowrap">' + esc(fmtDate(p.createdAt)) + '</td>' +
+        '<td>' + esc(p.clientName || p.clientEmail || p.payerEmail || '') + '</td>' +
+        '<td>' + esc(p.description) + '</td>' +
+        '<td class="num">' + esc(money(p.amount)) + '</td>' +
+        '<td>' + (p.kind === 'invoice' ? 'Invoice' : 'Pay link') + (p.live === false ? ' (test)' : '') + '</td>' +
+        '<td><span class="adm-status adm-status--' + (paid ? 'paid' : 'open') + '">' + (paid ? 'Paid ' + esc(fmtDate(p.paidAt)) : 'Unpaid') + '</span></td>' +
+        '<td class="nowrap">' + (p.url && !paid ? '<button class="adm-copy" type="button" data-copy="' + esc(p.url) + '">Copy link</button>' : '') + '</td></tr>';
+    }).join('') : empty(7, 'No payment requests yet. Create one above and it shows here until it is paid.');
+
+    // program sales
+    $('#saleRows').innerHTML = sales.length ? sales.map(function (s) {
+      return '<tr><td class="nowrap">' + esc(fmtDate(s.createdAt, true)) + '</td>' +
+        '<td>' + esc(s.name ? s.name + ' ' : '') + '<a href="mailto:' + esc(s.email) + '">' + esc(s.email) + '</a></td>' +
+        '<td class="nowrap">' + esc(s.trackLabel || trackName(s.track)) + '</td>' +
+        '<td class="nowrap">' + esc(TIER[s.tier] || '') + (s.live === false ? ' (test)' : '') + '</td>' +
+        '<td class="num">' + esc(money(s.amount)) + '</td>' +
+        '<td><span class="adm-code">' + esc(s.code || '') + '</span></td></tr>';
+    }).join('') : empty(6, 'No program sales yet.');
 
     // founding list picks: one gold series, values in text ink
     var picks = TRACKS.map(function (t) {
@@ -177,6 +219,10 @@
       rows = [['Date', 'First name', 'Email', 'Program']].concat(data.signups.map(function (s) {
         return [s.createdAt, s.firstName, s.email, s.trackLabel || trackName(s.track)];
       }));
+    } else if (kind === 'sales') {
+      rows = [['Date', 'Name', 'Email', 'Track', 'Price', 'Paid', 'Access code']].concat((data.sales || []).map(function (s) {
+        return [s.createdAt, s.name, s.email, s.trackLabel || trackName(s.track), TIER[s.tier] || s.tier, (s.amount || 0) / 100, s.code];
+      }));
     } else {
       rows = [['Email', 'Tracks', 'Lessons done', 'Visits', 'Last active', 'Joined']].concat(data.members.map(function (m) {
         return [m.email, (m.tracks || []).map(trackName).join(' + '), Object.keys(m.progress || {}).length, m.visits || 0, m.lastSeen, m.firstSeen];
@@ -214,6 +260,58 @@
     fetch('/api/admin/logout', { method: 'POST', credentials: 'same-origin' }).then(function () { data = null; show('out'); });
   });
   $('#refresh').addEventListener('click', load);
+
+  /* ---------- request a payment ---------- */
+  var payMode = 'link';
+  document.querySelectorAll('#payForm [data-mode]').forEach(function (b) {
+    b.addEventListener('click', function () { payMode = b.getAttribute('data-mode'); });
+  });
+  $('#payForm').addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var err = $('#payErr'), btns = document.querySelectorAll('#payForm [data-mode]');
+    var body = {
+      mode: payMode,
+      clientName: $('#pName').value.trim(),
+      clientEmail: $('#pEmail').value.trim(),
+      description: $('#pDesc').value.trim(),
+      amount: $('#pAmount').value
+    };
+    err.hidden = true;
+    if (!body.description) { err.textContent = 'Add what the payment is for.'; err.hidden = false; return; }
+    if (!(Number(body.amount) >= 1)) { err.textContent = 'Add the amount in dollars.'; err.hidden = false; return; }
+    if (payMode === 'invoice' && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(body.clientEmail)) {
+      err.textContent = 'An invoice needs the client\'s email.'; err.hidden = false; return;
+    }
+    btns.forEach(function (b) { b.disabled = true; });
+    fetch('/api/admin/payment', {
+      method: 'POST', credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body)
+    })
+      .then(function (r) { return r.json(); })
+      .then(function (r) {
+        if (!r.ok) { throw new Error(r.error || 'Could not create it.'); }
+        var p = r.payment;
+        $('#payOutK').textContent = p.kind === 'invoice'
+          ? 'Invoice emailed to ' + p.clientEmail + ' for ' + money(p.amount) + '. This is the same page they got:'
+          : 'Pay link for ' + money(p.amount) + ' is ready. Send it to ' + (p.clientName || 'your client') + ':';
+        $('#payOutUrl').value = p.url;
+        $('#payText').href = 'sms:?&body=' + encodeURIComponent('Here is the link to pay for ' + p.description + ': ' + p.url);
+        $('#payOut').hidden = false;
+        $('#payForm').reset();
+        return load();
+      })
+      .catch(function (e) { err.textContent = e.message; err.hidden = false; })
+      .then(function () { btns.forEach(function (b) { b.disabled = false; }); });
+  });
+  function copyText(text, btn) {
+    var done = function () { var t = btn.textContent; btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = t; }, 1500); };
+    if (navigator.clipboard) { navigator.clipboard.writeText(text).then(done).catch(function () {}); }
+  }
+  $('#payCopy').addEventListener('click', function () { copyText($('#payOutUrl').value, $('#payCopy')); });
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-copy]');
+    if (b) { copyText(b.getAttribute('data-copy'), b); }
+  });
   document.querySelectorAll('[data-csv]').forEach(function (b) {
     b.addEventListener('click', function () { csv(b.getAttribute('data-csv')); });
   });

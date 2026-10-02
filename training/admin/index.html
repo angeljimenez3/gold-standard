@@ -25,6 +25,7 @@
       Dashboard
     </span>
     <div class="adm-hdr__actions" data-when="in" hidden>
+      <span class="adm-badge" id="stripeBadge" hidden></span>
       <span class="adm-updated" id="updated"></span>
       <button class="adm-btn adm-btn--ghost" id="refresh" type="button">Refresh</button>
       <button class="adm-btn adm-btn--ghost" id="logout" type="button">Log out</button>
@@ -67,13 +68,15 @@
       <span class="adm-tile__s" id="tMembersSub"></span>
     </div>
     <div class="adm-card adm-tile">
-      <span class="adm-tile__k">Lessons completed</span>
-      <span class="adm-tile__v" id="tLessons">0</span>
-      <span class="adm-tile__s" id="tLessonsSub"></span>
+      <span class="adm-tile__k">Program sales</span>
+      <span class="adm-tile__v" id="tSales">$0</span>
+      <span class="adm-tile__s" id="tSalesSub"></span>
     </div>
   </section>
 
   <nav class="adm-nav" aria-label="Sections">
+    <a href="#pay">Request a payment</a>
+    <a href="#sales">Sales</a>
     <a href="#leads">Training leads</a>
     <a href="#founding">Founding list</a>
     <a href="#members">Members</a>
@@ -94,6 +97,62 @@
       </div>
     </section>
   </div>
+
+  <section class="adm-card adm-sec" id="pay" aria-labelledby="payH">
+    <h2 class="adm-h2" id="payH">Request a payment</h2>
+    <p class="adm-muted adm-note">For one-on-one training, private lessons or seminars. A pay link is for you to text or DM. An invoice is emailed to the client by Stripe, due in 7 days.</p>
+    <form class="adm-payform" id="payForm" novalidate>
+      <div class="adm-field">
+        <label class="adm-label" for="pName">Client name</label>
+        <input class="adm-input" id="pName" autocomplete="off" placeholder="Jordan Smith">
+      </div>
+      <div class="adm-field">
+        <label class="adm-label" for="pEmail">Client email <span class="adm-opt">(needed for invoices)</span></label>
+        <input class="adm-input" id="pEmail" type="email" autocomplete="off" placeholder="client@email.com">
+      </div>
+      <div class="adm-field adm-field--wide">
+        <label class="adm-label" for="pDesc">What it's for</label>
+        <input class="adm-input" id="pDesc" maxlength="120" autocomplete="off" placeholder="One-on-one training, 8 sessions">
+      </div>
+      <div class="adm-field">
+        <label class="adm-label" for="pAmount">Amount (USD)</label>
+        <input class="adm-input" id="pAmount" type="number" inputmode="decimal" min="1" max="20000" step="0.01" placeholder="400">
+      </div>
+      <div class="adm-payform__actions">
+        <button class="adm-btn adm-btn--gold" type="submit" data-mode="link">Create pay link</button>
+        <button class="adm-btn adm-btn--ghost" type="submit" data-mode="invoice">Email an invoice</button>
+      </div>
+      <p class="adm-err" id="payErr" hidden></p>
+    </form>
+    <div class="adm-payout" id="payOut" hidden>
+      <p class="adm-payout__k" id="payOutK"></p>
+      <div class="adm-payout__row">
+        <input class="adm-input" id="payOutUrl" readonly>
+        <button class="adm-btn adm-btn--gold adm-btn--sm" type="button" id="payCopy">Copy link</button>
+        <a class="adm-btn adm-btn--ghost adm-btn--sm adm-btn--link" id="payText" href="#">Text it</a>
+      </div>
+    </div>
+    <div class="adm-scroll">
+      <table class="adm-table">
+        <thead><tr><th>Date</th><th>Client</th><th>For</th><th class="num">Amount</th><th>Type</th><th>Status</th><th></th></tr></thead>
+        <tbody id="payRows"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="adm-card adm-sec" id="sales" aria-labelledby="salesH">
+    <div class="adm-sec__head">
+      <h2 class="adm-h2" id="salesH">Program sales</h2>
+      <button class="adm-btn adm-btn--ghost" type="button" data-csv="sales">Download CSV</button>
+    </div>
+    <p class="adm-muted adm-note">Each buyer's access code is shown here in case they lose it. It works with the email they paid with.</p>
+    <div class="adm-scroll">
+      <table class="adm-table">
+        <thead><tr><th>Date</th><th>Buyer</th><th>Track</th><th>Price</th><th class="num">Paid</th><th>Access code</th></tr></thead>
+        <tbody id="saleRows"></tbody>
+      </table>
+    </div>
+  </section>
 
   <section class="adm-card adm-sec" id="leads" aria-labelledby="leadsH">
     <div class="adm-sec__head">

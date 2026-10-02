@@ -508,3 +508,11 @@ body.vs-theater-open .mobile-nav { display: none !important; }
   .search-box { margin-left: 0; width: 100%; }
 }
 .mobile-nav { display: none; }
+
+/* Welcome after checkout: shows the buyer's personal access code once */
+.modal.welcome { max-width: 460px; }
+.welcome-body { padding: 30px 26px 26px; text-align: center; display: flex; flex-direction: column; gap: 12px; }
+.welcome-body h2 { font-family: "Anton", sans-serif; font-size: 34px; letter-spacing: 1px; }
+.welcome-code { font-family: "Bebas Neue", sans-serif; font-size: 40px; letter-spacing: 4px; color: var(--gold); user-select: all; }
+.welcome-note { font-size: 14px; opacity: 0.75; }
+.welcome-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 6px; }

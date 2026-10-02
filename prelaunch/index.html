@@ -46,7 +46,7 @@
       </svg>
       <span class="mark__txt">The Goldy Standard</span>
     </a>
-    <a href="#claim" class="hdr__cta">Get Early Access</a>
+    <a href="#claim" class="hdr__cta" data-cta-label>Get Early Access</a>
   </div>
 </header>
 
@@ -67,7 +67,7 @@
 
     <div class="hero__actions">
       <a href="#inside" class="btn btn--ghost">See What's Inside</a>
-      <a href="#claim" class="btn btn--gold">Claim Early Access</a>
+      <a href="#claim" class="btn btn--gold" data-cta-label>Claim Early Access</a>
     </div>
 
     <p class="hero__note">
@@ -163,7 +163,7 @@
       <div class="step" data-step="2" hidden>
         <span class="eyebrow">Step 2 of 2</span>
         <h2 class="claim__h">Lock In<br><span class="gold">Founding Price.</span></h2>
-        <p class="small claim__sub">
+        <p class="small claim__sub" data-presale-sub>
           You picked <strong class="gold" data-chosen>your track</strong>.
           The first <span data-spots>100</span> members get the full program for
           <strong class="gold">$<span data-price>197</span></strong> instead of
@@ -194,6 +194,20 @@
 
           <p class="form__fine">You'll get a few emails from me before launch, including how your track is laid out. You can unsubscribe whenever you want.</p>
         </form>
+
+        <!-- Launch: shown instead of the email form when SALES_OPEN is on -->
+        <div class="buy" data-buy>
+          <p class="buy__price">
+            <strong class="gold">$<span data-buy-price>197</span></strong>
+            <span class="buy__was" data-buy-was>$297</span>
+          </p>
+          <p class="small buy__note" data-buy-note>Founding price for the first 100 members.</p>
+          <p class="form__err" id="buy-err" role="alert" hidden></p>
+          <button type="button" class="btn btn--gold form__submit" id="buy-btn">
+            <span class="buy__label">Get <span data-chosen>your track</span></span>
+          </button>
+          <p class="form__fine">Secure checkout by Stripe. One payment, lifetime access. You get your access code the moment you pay.</p>
+        </div>
 
         <button class="step__back" type="button">&larr; Change my track</button>
       </div>
@@ -239,7 +253,7 @@
       <p class="lede">
         I took those twelve years and built them into twelve weeks.
       </p>
-      <a href="#claim" class="btn btn--gold about__cta">Get Early Access</a>
+      <a href="#claim" class="btn btn--gold about__cta" data-cta-label>Get Early Access</a>
     </div>
   </div>
 </section>

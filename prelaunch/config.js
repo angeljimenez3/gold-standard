@@ -22,9 +22,15 @@ window.GS_CONFIG = {
   //    Leave empty to hide the countdown entirely.
   LAUNCH_DATE: "",
 
-  // 5. Where the GS logo goes: Hannah's home page. Switch to https://hannahgoldy.com once bought.
+  // 5. Where the GS logo goes: Hannah's home page.
   HOME_URL: "https://hannahgoldy.com",
 
   // 6. Tag every lead from this page (useful once you run more than one source).
-  SOURCE_TAG: "prelaunch-teaser"
+  SOURCE_TAG: "prelaunch-teaser",
+
+  // 7. LAUNCH SWITCH. false = founding list (email form). true = people pay through Stripe
+  //    for the track they pick ($197 for the first 100 sales, then $297; counted on the server).
+  //    Preview the launch version any time by adding ?sales=preview to the page address.
+  SALES_OPEN: false,
+  CHECKOUT_ENDPOINT: "https://hannahgoldy.com/api/checkout"
 };
