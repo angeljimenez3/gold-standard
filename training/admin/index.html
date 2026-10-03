@@ -75,12 +75,35 @@
   </section>
 
   <nav class="adm-nav" aria-label="Sections">
+    <a href="#contacts">Form contacts</a>
     <a href="#pay">Request a payment</a>
     <a href="#sales">Sales</a>
     <a href="#leads">Training leads</a>
     <a href="#founding">Founding list</a>
     <a href="#members">Members</a>
   </nav>
+
+  <section class="adm-card adm-sec" id="contacts" aria-labelledby="contactsH">
+    <div class="adm-sec__head">
+      <h2 class="adm-h2" id="contactsH">Website form contacts <span class="adm-count" id="cCount"></span></h2>
+      <button class="adm-btn adm-btn--ghost" type="button" data-csv="contacts">Download CSV</button>
+    </div>
+    <p class="adm-muted adm-note">Everyone who filled in a form on the website: the training form on /training and the founding list signup on /program. Newest first, one row per person.</p>
+    <div class="adm-filters">
+      <input class="adm-input" id="cSearch" type="search" placeholder="Search name, email or phone" aria-label="Search contacts" autocomplete="off">
+      <select class="adm-input" id="cFilter" aria-label="Show">
+        <option value="">Both forms</option>
+        <option value="Training form">Training form</option>
+        <option value="Program signup">Program signup</option>
+      </select>
+    </div>
+    <div class="adm-scroll">
+      <table class="adm-table">
+        <thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Form</th><th>When</th><th>What they said</th></tr></thead>
+        <tbody id="contactRows"></tbody>
+      </table>
+    </div>
+  </section>
 
   <div class="adm-grid2">
     <section class="adm-card adm-sec" aria-labelledby="picksH">

@@ -176,7 +176,61 @@
     }).join('') : empty(6, 'No member activity yet.');
 
     $('#updated').textContent = 'Updated ' + fmtDate(data.generatedAt, true);
+    contactList = buildContacts();
+    renderContacts();
   }
+
+  /* ---------- contacts: everyone in one list, one row per email ---------- */
+  var contactList = [];
+  function buildContacts() {
+    var map = {};
+    function add(email, info, tag, when) {
+      email = String(email || '').trim().toLowerCase();
+      if (!email) { return; }
+      var c = map[email] || (map[email] = { email: email, name: '', phone: '', phoneE164: '', tags: [], notes: [], first: '', last: '' });
+      if (info.name && (!c.name || info.name.length > c.name.length)) { c.name = info.name; }
+      if (info.phone && !c.phone) { c.phone = info.phone; c.phoneE164 = info.phoneE164 || ''; }
+      if (c.tags.indexOf(tag) === -1) { c.tags.push(tag); }
+      if (info.note && c.notes.indexOf(info.note) === -1) { c.notes.push(info.note); }
+      if (when) {
+        if (!c.first || when < c.first) { c.first = when; }
+        if (!c.last || when > c.last) { c.last = when; }
+      }
+    }
+    // the two website forms: /training enquiries and the /program founding-list signup
+    data.leads.forEach(function (l) {
+      add(l.email, { name: l.name, phone: l.phone, phoneE164: l.phoneE164, note: 'Wants ' + l.goal + (l.message ? ': "' + l.message + '"' : '') }, 'Training form', l.createdAt);
+    });
+    data.signups.forEach(function (s) {
+      add(s.email, { name: s.firstName, note: 'Founding list, picked ' + (s.trackLabel || trackName(s.track) || 'no program yet') }, 'Program signup', s.createdAt);
+    });
+    return Object.keys(map).map(function (k) { return map[k]; })
+      .sort(function (a, b) { return String(b.last).localeCompare(String(a.last)); });
+  }
+  function visibleContacts() {
+    var q = $('#cSearch').value.trim().toLowerCase(), digits = q.replace(/\D/g, ''), tag = $('#cFilter').value;
+    return contactList.filter(function (c) {
+      if (tag && c.tags.indexOf(tag) === -1) { return false; }
+      if (!q) { return true; }
+      return c.name.toLowerCase().indexOf(q) !== -1 || c.email.indexOf(q) !== -1 ||
+        (digits.length >= 3 && c.phone.replace(/\D/g, '').indexOf(digits) !== -1);
+    });
+  }
+  function renderContacts() {
+    var rows = visibleContacts();
+    $('#cCount').textContent = '(' + rows.length + (rows.length === contactList.length ? '' : ' of ' + contactList.length) + ')';
+    $('#contactRows').innerHTML = rows.length ? rows.map(function (c) {
+      var tel = c.phoneE164 || c.phone;
+      return '<tr><td class="nowrap">' + esc(c.name || '') + '</td>' +
+        '<td><a href="mailto:' + esc(c.email) + '">' + esc(c.email) + '</a></td>' +
+        '<td class="nowrap">' + (c.phone ? '<a href="tel:' + esc(tel) + '">' + esc(c.phone) + '</a><a class="adm-sms" href="sms:' + esc(tel) + '">Text</a>' : '') + '</td>' +
+        '<td>' + c.tags.map(function (t) { return '<span class="adm-tag">' + esc(t) + '</span>'; }).join('') + '</td>' +
+        '<td class="nowrap" title="' + esc(fmtDate(c.last, true)) + '">' + esc(ago(c.last)) + '</td>' +
+        '<td class="note">' + esc(c.notes.join('\n')) + '</td></tr>';
+    }).join('') : empty(6, contactList.length ? 'Nobody matches that search.' : 'No contacts yet. They show up here as people use the forms.');
+  }
+  $('#cSearch').addEventListener('input', function () { if (data) { renderContacts(); } });
+  $('#cFilter').addEventListener('change', function () { if (data) { renderContacts(); } });
 
   /* ---------- data ---------- */
   function load() {
@@ -218,6 +272,10 @@
     } else if (kind === 'signups') {
       rows = [['Date', 'First name', 'Email', 'Program']].concat(data.signups.map(function (s) {
         return [s.createdAt, s.firstName, s.email, s.trackLabel || trackName(s.track)];
+      }));
+    } else if (kind === 'contacts') {
+      rows = [['Name', 'Email', 'Phone', 'Form', 'First sent', 'Latest', 'What they said']].concat(contactList.map(function (c) {
+        return [c.name, c.email, c.phone, c.tags.join(' + '), c.first, c.last, c.notes.join(' | ')];
       }));
     } else if (kind === 'sales') {
       rows = [['Date', 'Name', 'Email', 'Track', 'Price', 'Paid', 'Access code']].concat((data.sales || []).map(function (s) {

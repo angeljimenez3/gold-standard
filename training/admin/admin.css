@@ -117,3 +117,10 @@
 .adm-status--open { background: rgba(255,255,255,0.08); color: var(--text-dim); }
 .adm-code { font-family: var(--font-accent); font-size: 17px; letter-spacing: 0.08em; color: var(--white); user-select: all; white-space: nowrap; }
 .adm-copy { background: none; border: 0; color: var(--gold); cursor: pointer; font: inherit; font-size: 13px; padding: 4px 0; min-height: 32px; }
+
+/* contacts */
+.adm-count { font-family: var(--font-body); font-size: 14px; letter-spacing: 0; color: var(--text-dim); text-transform: none; vertical-align: middle; }
+.adm-filters { display: grid; grid-template-columns: 1fr; gap: 8px; margin-bottom: 12px; }
+@media (min-width: 720px) { .adm-filters { grid-template-columns: 1fr 220px; } }
+.adm-filters select.adm-input { appearance: auto; }
+.adm-sms { font-size: 12px; margin-left: 8px; }
