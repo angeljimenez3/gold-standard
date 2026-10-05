@@ -19,6 +19,10 @@ const TRACKS = { 'fat-loss': 'Fat Loss', 'lean-muscle': 'Build Muscle', 'fighter
 const PRICE = { founding: 19700, full: 29700, addon: 17800 }; // cents
 const FOUNDING_LIMIT = 100;
 const CODE_CHARS = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // no 0/O or 1/I
+// Stripe tax category for the program: "On demand Online Courses, pre-recorded audio or
+// audio visual content (streamed and downloadable)". Hannah's account has Managed Payments
+// on (Stripe/Link is the seller of record and handles sales tax), which requires it.
+const PROGRAM_TAX_CODE = 'txcd_20060258';
 
 let client = null;
 function stripe() {
@@ -121,6 +125,7 @@ async function createCheckout(opts) {
         unit_amount: PRICE[tier],
         product_data: {
           name: 'The Goldy Standard: ' + TRACKS[track],
+          tax_code: PROGRAM_TAX_CODE,
           description: tier === 'founding' ? 'Founding member price. 12-week program, lifetime access.'
             : tier === 'addon' ? 'Member price for an extra track. 12-week program, lifetime access.'
             : '12-week program, lifetime access.'
@@ -220,6 +225,9 @@ async function createPaymentRequest(r) {
     const link = await s.paymentLinks.create({
       line_items: [{ price: price.id, quantity: 1 }],
       restrictions: { completed_sessions: { limit: 1 } }, // one client, one payment
+      // live one-on-one coaching is not a digital product, so Stripe's Managed Payments
+      // (on by default for this account) does not apply; Hannah is the seller here
+      managed_payments: { enabled: false },
       metadata: { kind: 'one-on-one' },
       after_completion: { type: 'hosted_confirmation', hosted_confirmation: { custom_message: 'Thank you! Your payment went through. Talk soon, Hannah' } }
     });
