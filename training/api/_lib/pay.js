@@ -20,8 +20,7 @@ const PRICE = { founding: 19700, full: 29700, addon: 17800 }; // cents
 const FOUNDING_LIMIT = 100;
 const CODE_CHARS = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // no 0/O or 1/I
 // Stripe tax category for the program: "On demand Online Courses, pre-recorded audio or
-// audio visual content (streamed and downloadable)". Hannah's account has Managed Payments
-// on (Stripe/Link is the seller of record and handles sales tax), which requires it.
+// audio visual content (streamed and downloadable)". Only matters if Stripe Tax is turned on.
 const PROGRAM_TAX_CODE = 'txcd_20060258';
 
 let client = null;
@@ -133,6 +132,9 @@ async function createCheckout(opts) {
       }
     }],
     customer_email: email || undefined,
+    // Hannah is the seller. Newer Stripe API versions turn Managed Payments (Stripe/Link as
+    // seller of record, 3.5% extra per sale) on for each checkout unless told otherwise.
+    managed_payments: { enabled: false },
     metadata: meta,
     payment_intent_data: { metadata: meta, description: 'The Goldy Standard: ' + TRACKS[track] },
     success_url: SITE + '/members/?paid={CHECKOUT_SESSION_ID}',
@@ -225,8 +227,7 @@ async function createPaymentRequest(r) {
     const link = await s.paymentLinks.create({
       line_items: [{ price: price.id, quantity: 1 }],
       restrictions: { completed_sessions: { limit: 1 } }, // one client, one payment
-      // live one-on-one coaching is not a digital product, so Stripe's Managed Payments
-      // (on by default for this account) does not apply; Hannah is the seller here
+      // Hannah is the seller (no Managed Payments; live coaching isn't eligible anyway)
       managed_payments: { enabled: false },
       metadata: { kind: 'one-on-one' },
       after_completion: { type: 'hosted_confirmation', hosted_confirmation: { custom_message: 'Thank you! Your payment went through. Talk soon, Hannah' } }
