@@ -199,7 +199,7 @@ const EXERCISE_LIBRARY = [
   { name: "Tricep Dumbbell Extension", cat: "Push", driveId: "18xc7yY6STLdEBmf_UaxRrxEZniAKnrX5" },
   { name: "Cable Fly", cat: "Push", driveId: "17hclxa-Hsehox8q1owKJU2Q-Q_0NPfq5" },
   /* Pull */
-  { name: "Pull Ups (+ Band Assisted)", cat: "Pull", driveId: "1cgHrV8A2VGWnwTgcJlCubNXOw6zx1FFD" },
+  { name: "Pull Ups (+ Band Assisted)", cat: "Pull", driveId: "1Z-Sj4mRO18RlIDXNVjcISgKoNn6GIWQA" },
   { name: "Lat Pulldown", cat: "Pull", driveId: "1rJ4gUMzO2WRyF-F_--aGGjJAk2rvq1mO" },
   { name: "Seated Cable Row", cat: "Pull", driveId: "1eKmIbZf-LaGNy9CS8NpQzVRQIwGBmBeo" },
   { name: "Bent Over Barbell Row", cat: "Pull", driveId: "12MAtq_2Fbj0qZ9JVrcMYv6TkcaVWga7X" },
@@ -214,7 +214,7 @@ const EXERCISE_LIBRARY = [
   { name: "Band Pull Aparts", cat: "Shoulders", driveId: "1y4mL3jJU939SYJ2qkD1Jt8FnZEXM93om" },
   /* Power */
   { name: "Barbell Hanging Power Clean and Press", cat: "Power", driveId: "1H9mCE2e_C_IWYMnOE91QDtvCue-wZurB" },
-  { name: "Hanging Squat Clean", cat: "Power", driveId: "1iv_7ORdYdRdgPC5KMSnOMIXbSU-0_yeB" },
+  { name: "Hanging Squat Clean", cat: "Power", driveId: "1l8dX3bDpNh1oY29T_yQ8Ku375hPDVoQ3" },
   { name: "Squat Clean from Floor", cat: "Power", driveId: "14UcwVRzMEZuKaS9klHWioQnnGcaMK_0k" },
   { name: "Dumbbell Snatch (Single Arm)", cat: "Power", driveId: "1hHHuqlQN1mPV1OjwOU6ZkC0rWdmvd7b2" },
   { name: "Kettlebell Swing", cat: "Power", driveId: "1eUkYJ13MiODGFmb4Q-BU9zNqNb46M_IA" },
